@@ -1,0 +1,311 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F80B924D1CC990B300656EA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B924C1CC990B300656EA2 /* main.m */; };
+		F80B92501CC990B300656EA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B924F1CC990B300656EA2 /* AppDelegate.m */; };
+		F80B92521CC990B300656EA2 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F80B92511CC990B300656EA2 /* art.scnassets */; };
+		F80B92551CC990B300656EA2 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92541CC990B300656EA2 /* GameViewController.m */; };
+		F80B92581CC990B300656EA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F80B92561CC990B300656EA2 /* Main.storyboard */; };
+		F80B925A1CC990B300656EA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F80B92591CC990B300656EA2 /* Assets.xcassets */; };
+		F80B925D1CC990B300656EA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F80B925B1CC990B300656EA2 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F80B92481CC990B300656EA2 /* Sly Guy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sly Guy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F80B924C1CC990B300656EA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F80B924E1CC990B300656EA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F80B924F1CC990B300656EA2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F80B92511CC990B300656EA2 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		F80B92531CC990B300656EA2 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		F80B92541CC990B300656EA2 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		F80B92571CC990B300656EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F80B92591CC990B300656EA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F80B925C1CC990B300656EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F80B925E1CC990B300656EA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F80B92451CC990B300656EA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F80B923F1CC990B300656EA2 = {
+			isa = PBXGroup;
+			children = (
+				F80B924A1CC990B300656EA2 /* Sly Guy */,
+				F80B92491CC990B300656EA2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F80B92491CC990B300656EA2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92481CC990B300656EA2 /* Sly Guy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F80B924A1CC990B300656EA2 /* Sly Guy */ = {
+			isa = PBXGroup;
+			children = (
+				F80B924E1CC990B300656EA2 /* AppDelegate.h */,
+				F80B924F1CC990B300656EA2 /* AppDelegate.m */,
+				F80B92511CC990B300656EA2 /* art.scnassets */,
+				F80B92531CC990B300656EA2 /* GameViewController.h */,
+				F80B92541CC990B300656EA2 /* GameViewController.m */,
+				F80B92561CC990B300656EA2 /* Main.storyboard */,
+				F80B92591CC990B300656EA2 /* Assets.xcassets */,
+				F80B925B1CC990B300656EA2 /* LaunchScreen.storyboard */,
+				F80B925E1CC990B300656EA2 /* Info.plist */,
+				F80B924B1CC990B300656EA2 /* Supporting Files */,
+			);
+			path = "Sly Guy";
+			sourceTree = "<group>";
+		};
+		F80B924B1CC990B300656EA2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F80B924C1CC990B300656EA2 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F80B92471CC990B300656EA2 /* Sly Guy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F80B92611CC990B300656EA2 /* Build configuration list for PBXNativeTarget "Sly Guy" */;
+			buildPhases = (
+				F80B92441CC990B300656EA2 /* Sources */,
+				F80B92451CC990B300656EA2 /* Frameworks */,
+				F80B92461CC990B300656EA2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sly Guy";
+			productName = "Sly Guy";
+			productReference = F80B92481CC990B300656EA2 /* Sly Guy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F80B92401CC990B300656EA2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Brandon Askea";
+				TargetAttributes = {
+					F80B92471CC990B300656EA2 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = F80B92431CC990B300656EA2 /* Build configuration list for PBXProject "Sly Guy" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F80B923F1CC990B300656EA2;
+			productRefGroup = F80B92491CC990B300656EA2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F80B92471CC990B300656EA2 /* Sly Guy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F80B92461CC990B300656EA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F80B92521CC990B300656EA2 /* art.scnassets in Resources */,
+				F80B925D1CC990B300656EA2 /* LaunchScreen.storyboard in Resources */,
+				F80B925A1CC990B300656EA2 /* Assets.xcassets in Resources */,
+				F80B92581CC990B300656EA2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F80B92441CC990B300656EA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F80B92501CC990B300656EA2 /* AppDelegate.m in Sources */,
+				F80B92551CC990B300656EA2 /* GameViewController.m in Sources */,
+				F80B924D1CC990B300656EA2 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F80B92561CC990B300656EA2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F80B92571CC990B300656EA2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F80B925B1CC990B300656EA2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F80B925C1CC990B300656EA2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F80B925F1CC990B300656EA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F80B92601CC990B300656EA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F80B92621CC990B300656EA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Sly Guy/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.slyguygame.Sly-Guy";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F80B92631CC990B300656EA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Sly Guy/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.slyguygame.Sly-Guy";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F80B92431CC990B300656EA2 /* Build configuration list for PBXProject "Sly Guy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F80B925F1CC990B300656EA2 /* Debug */,
+				F80B92601CC990B300656EA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F80B92611CC990B300656EA2 /* Build configuration list for PBXNativeTarget "Sly Guy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F80B92621CC990B300656EA2 /* Debug */,
+				F80B92631CC990B300656EA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F80B92401CC990B300656EA2 /* Project object */;
+}
