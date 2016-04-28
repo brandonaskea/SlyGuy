@@ -1,116 +1,43 @@
 //
 //  GameViewController.m
-//  Sly Guy
+//  Trumpd
 //
-//  Created by Brandon Askea on 4/21/16.
+//  Created by Brandon Askea on 1/24/16.
 //  Copyright (c) 2016 Brandon Askea. All rights reserved.
 //
 
 #import "GameViewController.h"
+#import "TheStillScene.h"
+#import "TheScrollScene.h"
+#import "SwipeMenu.h"
+#import "UIColor+GameColors.h"
+
+@interface GameViewController () <UIGestureRecognizerDelegate, SwipeMenuDelegate> {
+    
+    BaseScene *scene;
+    SKView * skView;
+    UIView *swipeView;
+    SwipeMenu *swipeMenu;
+    UISwipeGestureRecognizer *swipeRight;
+}
+
+@end
 
 @implementation GameViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // create a new scene
-    SCNScene *scene = [SCNScene sceneNamed:@"art.scnassets/ship.scn"];
-
-    // create and add a camera to the scene
-    SCNNode *cameraNode = [SCNNode node];
-    cameraNode.camera = [SCNCamera camera];
-    [scene.rootNode addChildNode:cameraNode];
     
-    // place the camera
-    cameraNode.position = SCNVector3Make(0, 0, 15);
+    self.view.userInteractionEnabled = YES;
     
-    // create and add a light to the scene
-    SCNNode *lightNode = [SCNNode node];
-    lightNode.light = [SCNLight light];
-    lightNode.light.type = SCNLightTypeOmni;
-    lightNode.position = SCNVector3Make(0, 10, 10);
-    [scene.rootNode addChildNode:lightNode];
+    [self setUpScene];
     
-    // create and add an ambient light to the scene
-    SCNNode *ambientLightNode = [SCNNode node];
-    ambientLightNode.light = [SCNLight light];
-    ambientLightNode.light.type = SCNLightTypeAmbient;
-    ambientLightNode.light.color = [UIColor darkGrayColor];
-    [scene.rootNode addChildNode:ambientLightNode];
-    
-    // retrieve the ship node
-    SCNNode *ship = [scene.rootNode childNodeWithName:@"ship" recursively:YES];
-    
-    // animate the 3d object
-    [ship runAction:[SCNAction repeatActionForever:[SCNAction rotateByX:0 y:2 z:0 duration:1]]];
-    
-    // retrieve the SCNView
-    SCNView *scnView = (SCNView *)self.view;
-    
-    // set the scene to the view
-    scnView.scene = scene;
-    
-    // allows the user to manipulate the camera
-    scnView.allowsCameraControl = YES;
-        
-    // show statistics such as fps and timing information
-    scnView.showsStatistics = YES;
-
-    // configure the view
-    scnView.backgroundColor = [UIColor blackColor];
-    
-    // add a tap gesture recognizer
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    NSMutableArray *gestureRecognizers = [NSMutableArray array];
-    [gestureRecognizers addObject:tapGesture];
-    [gestureRecognizers addObjectsFromArray:scnView.gestureRecognizers];
-    scnView.gestureRecognizers = gestureRecognizers;
-}
-
-- (void) handleTap:(UIGestureRecognizer*)gestureRecognize
-{
-    // retrieve the SCNView
-    SCNView *scnView = (SCNView *)self.view;
-    
-    // check what nodes are tapped
-    CGPoint p = [gestureRecognize locationInView:scnView];
-    NSArray *hitResults = [scnView hitTest:p options:nil];
-    
-    // check that we clicked on at least one object
-    if([hitResults count] > 0){
-        // retrieved the first clicked object
-        SCNHitTestResult *result = [hitResults objectAtIndex:0];
-        
-        // get its material
-        SCNMaterial *material = result.node.geometry.firstMaterial;
-        
-        // highlight it
-        [SCNTransaction begin];
-        [SCNTransaction setAnimationDuration:0.5];
-        
-        // on completion - unhighlight
-        [SCNTransaction setCompletionBlock:^{
-            [SCNTransaction begin];
-            [SCNTransaction setAnimationDuration:0.5];
-            
-            material.emission.contents = [UIColor blackColor];
-            
-            [SCNTransaction commit];
-        }];
-        
-        material.emission.contents = [UIColor redColor];
-        
-        [SCNTransaction commit];
-    }
+    [self presentLevel:self.level];
 }
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
-}
-
-- (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
@@ -127,6 +54,105 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+#pragma mark - SETUP METHODS
+
+-(void)setUpScene {
+ 
+    // SETUP SKVIEW
+    skView = [[SKView alloc] initWithFrame:self.view.frame];
+    skView.showsFPS = YES;
+    skView.showsNodeCount = YES;
+    skView.ignoresSiblingOrder = YES;
+    
+    // INVISIBLE VIEW FOR SLIDING MENU
+    swipeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kSwipeMenuWidth, self.view.bounds.size.height)];
+    
+    // SWIPE GESTURE
+    swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRight.delegate = self;
+    
+    [swipeView addGestureRecognizer:swipeRight];
+    
+    [skView addSubview:swipeView];
+    [self.view addSubview:skView];
+}
+
+-(void)presentLevel:(Level)level {
+        
+    if (level == 0) {
+        level = CITY;
+    }
+    
+    // LOAD THE EPISODE (level)
+    if (level % 2 == 0) {
+        // Even levels are Scroll Scenes
+        scene = [TheScrollScene unarchiveFromFile:@"TheScrollScene"];
+    }
+    else {
+        // Odd levels are Still Scenes
+        scene = (TheStillScene *)[TheStillScene unarchiveFromFile:@"TheStillScene"];
+    }
+    
+    // SET UP LEVEL (overload)
+    [scene setUpLevel:level];
+    
+    // SCALE TO FILL THE SCREEN SIZE
+    scene.scaleMode = SKSceneScaleModeFill;
+    
+    // Present the scene.
+    [skView presentScene:scene];
+}
+
+#pragma mark - SWIPE MENU
+
+-(void)swipeRight {
+    
+    // PAUSE GAME
+    [scene pauseGame];
+    
+    if (!swipeMenu) {
+        
+        swipeMenu = [[SwipeMenu alloc] initWithFrame:CGRectMake(-kSwipeMenuWidth, self.view.bounds.size.height / 2, kSwipeMenuWidth, self.view.bounds.size.height)];
+        [swipeMenu configureMenuWithFrame:CGRectMake(-kSwipeMenuWidth, self.view.bounds.size.height / 2, kSwipeMenuWidth, self.view.bounds.size.height)];
+        swipeMenu.backgroundColor = [UIColor clearColor];
+        swipeMenu.delegate = self;
+        swipeMenu.center = CGPointMake(-kSwipeMenuWidth, CGRectGetMidY(self.view.frame));
+        [self.view addSubview:swipeMenu];
+        [self.view bringSubviewToFront:swipeMenu];
+        
+    }
+    
+    [UIView animateKeyframesWithDuration:kSwipeAnimationDuration delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeCubicPaced animations:^{
+        
+        swipeMenu.center = CGPointMake(kSwipeMenuWidth - (kSwipeMenuWidth / 2), CGRectGetMidY(self.view.frame));
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+-(void)dismissMenu {
+    
+    // MOVE MENU BACK
+    [UIView animateKeyframesWithDuration:kSwipeAnimationDuration delay:0.15 options:UIViewKeyframeAnimationOptionCalculationModeCubicPaced animations:^{
+        
+        swipeMenu.frame = CGRectMake(-kSwipeMenuWidth, 0, kSwipeMenuWidth, self.view.bounds.size.height);
+        
+    } completion:^(BOOL finished) {
+        
+        // UNPAUSE GAME
+        [scene unpauseGame];
+        swipeMenu.alpha = 0;
+        [swipeMenu removeFromSuperview];
+        swipeMenu = nil;
+    }];
 }
 
 @end

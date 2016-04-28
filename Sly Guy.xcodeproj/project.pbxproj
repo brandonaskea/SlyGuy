@@ -10,10 +10,26 @@
 		F80B924D1CC990B300656EA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B924C1CC990B300656EA2 /* main.m */; };
 		F80B92501CC990B300656EA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B924F1CC990B300656EA2 /* AppDelegate.m */; };
 		F80B92521CC990B300656EA2 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F80B92511CC990B300656EA2 /* art.scnassets */; };
-		F80B92551CC990B300656EA2 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92541CC990B300656EA2 /* GameViewController.m */; };
 		F80B92581CC990B300656EA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F80B92561CC990B300656EA2 /* Main.storyboard */; };
 		F80B925A1CC990B300656EA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F80B92591CC990B300656EA2 /* Assets.xcassets */; };
 		F80B925D1CC990B300656EA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F80B925B1CC990B300656EA2 /* LaunchScreen.storyboard */; };
+		F80B92681CC9919200656EA2 /* BaseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92671CC9919200656EA2 /* BaseScene.m */; };
+		F80B926E1CC991BF00656EA2 /* StillScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B926A1CC991BF00656EA2 /* StillScene.m */; };
+		F80B926F1CC991BF00656EA2 /* TheStillScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B926C1CC991BF00656EA2 /* TheStillScene.m */; };
+		F80B92701CC991BF00656EA2 /* TheStillScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F80B926D1CC991BF00656EA2 /* TheStillScene.sks */; };
+		F80B92781CC9923400656EA2 /* ScrollScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92741CC9923400656EA2 /* ScrollScene.m */; };
+		F80B92791CC9923400656EA2 /* TheScrollScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92761CC9923400656EA2 /* TheScrollScene.m */; };
+		F80B927A1CC9923400656EA2 /* TheScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F80B92771CC9923400656EA2 /* TheScrollScene.sks */; };
+		F80B927F1CC9929000656EA2 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B927E1CC9929000656EA2 /* GameViewController.m */; };
+		F80B92851CC992B100656EA2 /* GameUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92821CC992B100656EA2 /* GameUtility.m */; };
+		F80B92861CC992B100656EA2 /* UIColor+GameColors.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92841CC992B100656EA2 /* UIColor+GameColors.m */; };
+		F80B928D1CC9934800656EA2 /* EnvironmentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B928A1CC9934800656EA2 /* EnvironmentManager.m */; };
+		F80B928E1CC9934800656EA2 /* ScreenSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B928C1CC9934800656EA2 /* ScreenSegment.m */; };
+		F80B92961CC9944600656EA2 /* SwipeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92911CC9944600656EA2 /* SwipeMenu.m */; };
+		F80B92971CC9944600656EA2 /* SwipeMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92931CC9944600656EA2 /* SwipeMenuCell.m */; };
+		F80B92981CC9944600656EA2 /* SwipeMenuHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92951CC9944600656EA2 /* SwipeMenuHeaderView.m */; };
+		F8F8A7EB1CD0AA1D0098533D /* LaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F8A7EA1CD0AA1D0098533D /* LaunchView.m */; };
+		F8F8A7EE1CD0B04E0098533D /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F8A7ED1CD0B04E0098533D /* MainMenuViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +38,43 @@
 		F80B924E1CC990B300656EA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F80B924F1CC990B300656EA2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F80B92511CC990B300656EA2 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		F80B92531CC990B300656EA2 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		F80B92541CC990B300656EA2 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		F80B92571CC990B300656EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F80B92591CC990B300656EA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F80B925C1CC990B300656EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F80B925E1CC990B300656EA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F80B92661CC9919200656EA2 /* BaseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseScene.h; sourceTree = "<group>"; };
+		F80B92671CC9919200656EA2 /* BaseScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseScene.m; sourceTree = "<group>"; };
+		F80B92691CC991BF00656EA2 /* StillScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StillScene.h; sourceTree = "<group>"; };
+		F80B926A1CC991BF00656EA2 /* StillScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StillScene.m; sourceTree = "<group>"; };
+		F80B926B1CC991BF00656EA2 /* TheStillScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheStillScene.h; sourceTree = "<group>"; };
+		F80B926C1CC991BF00656EA2 /* TheStillScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheStillScene.m; sourceTree = "<group>"; };
+		F80B926D1CC991BF00656EA2 /* TheStillScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TheStillScene.sks; sourceTree = "<group>"; };
+		F80B92731CC9923400656EA2 /* ScrollScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollScene.h; sourceTree = "<group>"; };
+		F80B92741CC9923400656EA2 /* ScrollScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollScene.m; sourceTree = "<group>"; };
+		F80B92751CC9923400656EA2 /* TheScrollScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheScrollScene.h; sourceTree = "<group>"; };
+		F80B92761CC9923400656EA2 /* TheScrollScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheScrollScene.m; sourceTree = "<group>"; };
+		F80B92771CC9923400656EA2 /* TheScrollScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TheScrollScene.sks; sourceTree = "<group>"; };
+		F80B927D1CC9929000656EA2 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		F80B927E1CC9929000656EA2 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		F80B92801CC992B100656EA2 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		F80B92811CC992B100656EA2 /* GameUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUtility.h; sourceTree = "<group>"; };
+		F80B92821CC992B100656EA2 /* GameUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameUtility.m; sourceTree = "<group>"; };
+		F80B92831CC992B100656EA2 /* UIColor+GameColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GameColors.h"; sourceTree = "<group>"; };
+		F80B92841CC992B100656EA2 /* UIColor+GameColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GameColors.m"; sourceTree = "<group>"; };
+		F80B92891CC9934800656EA2 /* EnvironmentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvironmentManager.h; sourceTree = "<group>"; };
+		F80B928A1CC9934800656EA2 /* EnvironmentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnvironmentManager.m; sourceTree = "<group>"; };
+		F80B928B1CC9934800656EA2 /* ScreenSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenSegment.h; sourceTree = "<group>"; };
+		F80B928C1CC9934800656EA2 /* ScreenSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenSegment.m; sourceTree = "<group>"; };
+		F80B92901CC9944600656EA2 /* SwipeMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeMenu.h; sourceTree = "<group>"; };
+		F80B92911CC9944600656EA2 /* SwipeMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeMenu.m; sourceTree = "<group>"; };
+		F80B92921CC9944600656EA2 /* SwipeMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeMenuCell.h; sourceTree = "<group>"; };
+		F80B92931CC9944600656EA2 /* SwipeMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeMenuCell.m; sourceTree = "<group>"; };
+		F80B92941CC9944600656EA2 /* SwipeMenuHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeMenuHeaderView.h; sourceTree = "<group>"; };
+		F80B92951CC9944600656EA2 /* SwipeMenuHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeMenuHeaderView.m; sourceTree = "<group>"; };
+		F8F8A7E91CD0AA1D0098533D /* LaunchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchView.h; sourceTree = "<group>"; };
+		F8F8A7EA1CD0AA1D0098533D /* LaunchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchView.m; sourceTree = "<group>"; };
+		F8F8A7EC1CD0B04E0098533D /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		F8F8A7ED1CD0B04E0098533D /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,12 +109,14 @@
 			children = (
 				F80B924E1CC990B300656EA2 /* AppDelegate.h */,
 				F80B924F1CC990B300656EA2 /* AppDelegate.m */,
-				F80B92511CC990B300656EA2 /* art.scnassets */,
-				F80B92531CC990B300656EA2 /* GameViewController.h */,
-				F80B92541CC990B300656EA2 /* GameViewController.m */,
-				F80B92561CC990B300656EA2 /* Main.storyboard */,
-				F80B92591CC990B300656EA2 /* Assets.xcassets */,
-				F80B925B1CC990B300656EA2 /* LaunchScreen.storyboard */,
+				F80B92641CC9913200656EA2 /* Storyboards, Nibs */,
+				F80B92711CC991FB00656EA2 /* Engine */,
+				F80B927C1CC9925300656EA2 /* Scenes */,
+				F80B928F1CC9934F00656EA2 /* Managers */,
+				F80B92881CC992D100656EA2 /* ViewControllers */,
+				F80B92991CC9944B00656EA2 /* Custom Views */,
+				F80B92651CC9916600656EA2 /* Images */,
+				F80B92871CC992B700656EA2 /* Utility */,
 				F80B925E1CC990B300656EA2 /* Info.plist */,
 				F80B924B1CC990B300656EA2 /* Supporting Files */,
 			);
@@ -80,6 +129,115 @@
 				F80B924C1CC990B300656EA2 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F80B92641CC9913200656EA2 /* Storyboards, Nibs */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92561CC990B300656EA2 /* Main.storyboard */,
+				F80B925B1CC990B300656EA2 /* LaunchScreen.storyboard */,
+			);
+			name = "Storyboards, Nibs";
+			sourceTree = "<group>";
+		};
+		F80B92651CC9916600656EA2 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92591CC990B300656EA2 /* Assets.xcassets */,
+				F80B92511CC990B300656EA2 /* art.scnassets */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		F80B92711CC991FB00656EA2 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92661CC9919200656EA2 /* BaseScene.h */,
+				F80B92671CC9919200656EA2 /* BaseScene.m */,
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
+		F80B92721CC9920400656EA2 /* Still Scene */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92691CC991BF00656EA2 /* StillScene.h */,
+				F80B926A1CC991BF00656EA2 /* StillScene.m */,
+				F80B926B1CC991BF00656EA2 /* TheStillScene.h */,
+				F80B926C1CC991BF00656EA2 /* TheStillScene.m */,
+				F80B926D1CC991BF00656EA2 /* TheStillScene.sks */,
+			);
+			name = "Still Scene";
+			sourceTree = "<group>";
+		};
+		F80B927B1CC9923A00656EA2 /* Scroll Scene */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92731CC9923400656EA2 /* ScrollScene.h */,
+				F80B92741CC9923400656EA2 /* ScrollScene.m */,
+				F80B92751CC9923400656EA2 /* TheScrollScene.h */,
+				F80B92761CC9923400656EA2 /* TheScrollScene.m */,
+				F80B92771CC9923400656EA2 /* TheScrollScene.sks */,
+			);
+			name = "Scroll Scene";
+			sourceTree = "<group>";
+		};
+		F80B927C1CC9925300656EA2 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92721CC9920400656EA2 /* Still Scene */,
+				F80B927B1CC9923A00656EA2 /* Scroll Scene */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		F80B92871CC992B700656EA2 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92801CC992B100656EA2 /* Constants.h */,
+				F80B92811CC992B100656EA2 /* GameUtility.h */,
+				F80B92821CC992B100656EA2 /* GameUtility.m */,
+				F80B92831CC992B100656EA2 /* UIColor+GameColors.h */,
+				F80B92841CC992B100656EA2 /* UIColor+GameColors.m */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		F80B92881CC992D100656EA2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F8F8A7EC1CD0B04E0098533D /* MainMenuViewController.h */,
+				F8F8A7ED1CD0B04E0098533D /* MainMenuViewController.m */,
+				F80B927D1CC9929000656EA2 /* GameViewController.h */,
+				F80B927E1CC9929000656EA2 /* GameViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F80B928F1CC9934F00656EA2 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92891CC9934800656EA2 /* EnvironmentManager.h */,
+				F80B928A1CC9934800656EA2 /* EnvironmentManager.m */,
+				F80B928B1CC9934800656EA2 /* ScreenSegment.h */,
+				F80B928C1CC9934800656EA2 /* ScreenSegment.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		F80B92991CC9944B00656EA2 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				F80B92901CC9944600656EA2 /* SwipeMenu.h */,
+				F80B92911CC9944600656EA2 /* SwipeMenu.m */,
+				F80B92921CC9944600656EA2 /* SwipeMenuCell.h */,
+				F80B92931CC9944600656EA2 /* SwipeMenuCell.m */,
+				F80B92941CC9944600656EA2 /* SwipeMenuHeaderView.h */,
+				F80B92951CC9944600656EA2 /* SwipeMenuHeaderView.m */,
+				F8F8A7E91CD0AA1D0098533D /* LaunchView.h */,
+				F8F8A7EA1CD0AA1D0098533D /* LaunchView.m */,
+			);
+			name = "Custom Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -113,6 +271,7 @@
 				TargetAttributes = {
 					F80B92471CC990B300656EA2 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = A4LJ2YC4BS;
 					};
 				};
 			};
@@ -140,7 +299,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F80B92521CC990B300656EA2 /* art.scnassets in Resources */,
+				F80B92701CC991BF00656EA2 /* TheStillScene.sks in Resources */,
 				F80B925D1CC990B300656EA2 /* LaunchScreen.storyboard in Resources */,
+				F80B927A1CC9923400656EA2 /* TheScrollScene.sks in Resources */,
 				F80B925A1CC990B300656EA2 /* Assets.xcassets in Resources */,
 				F80B92581CC990B300656EA2 /* Main.storyboard in Resources */,
 			);
@@ -153,9 +314,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F80B927F1CC9929000656EA2 /* GameViewController.m in Sources */,
+				F80B928E1CC9934800656EA2 /* ScreenSegment.m in Sources */,
+				F80B92851CC992B100656EA2 /* GameUtility.m in Sources */,
+				F80B928D1CC9934800656EA2 /* EnvironmentManager.m in Sources */,
+				F80B92961CC9944600656EA2 /* SwipeMenu.m in Sources */,
+				F80B92981CC9944600656EA2 /* SwipeMenuHeaderView.m in Sources */,
+				F80B92971CC9944600656EA2 /* SwipeMenuCell.m in Sources */,
+				F80B92681CC9919200656EA2 /* BaseScene.m in Sources */,
+				F80B926E1CC991BF00656EA2 /* StillScene.m in Sources */,
+				F8F8A7EE1CD0B04E0098533D /* MainMenuViewController.m in Sources */,
 				F80B92501CC990B300656EA2 /* AppDelegate.m in Sources */,
-				F80B92551CC990B300656EA2 /* GameViewController.m in Sources */,
+				F80B92861CC992B100656EA2 /* UIColor+GameColors.m in Sources */,
+				F80B926F1CC991BF00656EA2 /* TheStillScene.m in Sources */,
 				F80B924D1CC990B300656EA2 /* main.m in Sources */,
+				F8F8A7EB1CD0AA1D0098533D /* LaunchView.m in Sources */,
+				F80B92781CC9923400656EA2 /* ScrollScene.m in Sources */,
+				F80B92791CC9923400656EA2 /* TheScrollScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Sly Guy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.slyguygame.Sly-Guy";
@@ -278,6 +454,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Sly Guy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.slyguygame.Sly-Guy";
@@ -304,6 +481,7 @@
 				F80B92631CC990B300656EA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
