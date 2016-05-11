@@ -9,6 +9,8 @@
 #import "BaseScene.h"
 #import "Constants.h"
 #import "UIColor+GameColors.h"
+#import "AppDelegate.h"
+#import "Player.h"
 
 @interface BaseScene () <UIGestureRecognizerDelegate> {
     
@@ -16,27 +18,106 @@
     SKLabelNode                     *scoreLabel;
     SKSpriteNode                    *moveLeftButton;
     SKSpriteNode                    *moveRightButton;
-    UITapGestureRecognizer          *jumpGesture;
     SKPhysicsBody                   *physicsBody;
     NSTimer                         *touchesTimer;
     SKSpriteNode                    *healthImage;
     SKLabelNode                     *healthLabel;
     SKSpriteNode                    *moneyImage;
     SKLabelNode                     *moneyLabel;
-    UILongPressGestureRecognizer    *longPress;
     
-    BOOL                            shouldSkipScreenSegmentBackground;
-    BOOL                            shouldSkipScreenSegmentMiddleground;
-    BOOL                            shouldSkipScreenSegmentForeground;
+    BOOL                            shouldJump;
+    
+    Player  *sharedPlayer;
 }
-
-@property (nonatomic, assign) BOOL didScroll;
 
 @end
 
 @implementation BaseScene
 
 #pragma mark - SET UP METHODS
+
+-(void)dealloc {
+    
+    [touchesTimer invalidate];
+    touchesTimer = nil;
+}
+
+-(void) breakdownGame {
+    
+    /*
+     *  EXPLICIT DESTRUCTION OF GAME ELEMENTS
+     */
+    
+    [touchesTimer invalidate];
+    touchesTimer = nil;
+    
+    self.environmentManager = nil;
+    
+    [moveLeftButton removeFromParent];
+    moveLeftButton = nil;
+    [moveRightButton removeFromParent];
+    moveRightButton = nil;
+    [healthImage removeFromParent];
+    healthImage = nil;
+    [healthLabel removeFromParent];
+    healthLabel = nil;
+    [moneyImage removeFromParent];
+    moneyImage = nil;
+    [moneyLabel removeFromParent];
+    moneyLabel = nil;
+    [scoreLabel removeFromParent];
+    scoreLabel = nil;
+    
+    [self.player removeAllActions];
+    [self.player removeFromParent];
+    self.player = nil;
+    
+    physicsBody = nil;
+    
+    [self.background1 removeFromParent];
+    self.background1 = nil;
+    [self.background2 removeFromParent];
+    self.background2 = nil;
+    [self.middleground1 removeFromParent];
+    self.middleground1 = nil;
+    [self.middleground2 removeFromParent];
+    self.middleground2 = nil;
+    [self.foreground1 removeFromParent];
+    self.foreground1 = nil;
+    [self.foreground2 removeFromParent];
+    self.foreground2 = nil;
+    
+    [self.rightWall removeFromParent];
+    self.rightWall = nil;
+    [self.leftWall removeFromParent];
+    self.leftWall = nil;
+    [self.floor removeFromParent];
+    self.floor = nil;
+    
+    [self removeAllActions];
+    [self removeAllChildren];
+    [self removeFromParent];
+}
+
++(instancetype)unarchiveFromFile:(NSString *)file {
+    /* Retrieve scene file path from the application bundle */
+    
+    NSString *nodePath = [[NSBundle mainBundle] pathForResource:file ofType:@"sks"];
+    /* Unarchive the file to an SKScene object */
+    NSData *data = [NSData dataWithContentsOfFile:nodePath
+                                          options:NSDataReadingMappedIfSafe
+                                            error:nil];
+    NSKeyedUnarchiver *arch = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    [arch setClass:self forClassName:@"SKScene"];
+    SKScene *scene = [arch decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+    [arch finishDecoding];
+    
+    return (id)scene;
+}
+
+-(void)configureLevel:(Level)level {
+    self.level = level;
+}
 
 -(void)didMoveToView:(SKView *)view {
     
@@ -68,7 +149,6 @@
      */
     [self addControls];
     
-    
     /*
      *  PLACE BOUNDARIES
         The player will fall off the screen
@@ -80,6 +160,15 @@
      */
     [self placeBoundaries];
     
+    /*
+     *  SET UP LEVEL
+        After the environment is in place 
+        the individual level specifics
+        need to be set. This method will
+        set things like the floor color and
+        scroll type for each level.
+     */
+    [self setUpLevel];
     
     /*
      *  SET UP PLAYER
@@ -90,25 +179,14 @@
     
 }
 
--(void)setUpLevel:(Level)level {
-    
-    // This should be overloaded
-}
-
 -(void)setUpBaseScene {
     
     self.backgroundColor = [SKColor whiteColor];
+    self.scaleMode = SKSceneScaleModeFill;
 
     self.isScrollingEnabled = YES;
     self.isJumping = NO;
     self.isPaused = NO;
-    shouldSkipScreenSegmentBackground = NO;
-    shouldSkipScreenSegmentMiddleground = NO;
-    shouldSkipScreenSegmentForeground = NO;
-    
-    jumpGesture = [[UITapGestureRecognizer alloc] initWithTarget:self.view action:@selector(jump)];
-    jumpGesture.delaysTouchesBegan = NO;
-    jumpGesture.delegate = self;
     
     // Light
     SKLightNode *light = [[SKLightNode alloc] init];
@@ -135,56 +213,38 @@
      place the first Screen Segment.
      */
     
-    // 1) Set up EnvironmentManager.
+    // 1) SET UP EnvironmentManager.
     if (!self.environmentManager) {
-        self.environmentManager = [[EnvironmentManager alloc] initWithLevel:self.level sceneFrame:self.frame];
+        self.environmentManager = [[EnvironmentManager alloc] initWithLevel:self.level andScene:self];
     }
     
     
-    // 2) Set up dynamic 'grounds'.
+    // 2) BUILD dynamic 'grounds'.
+    
+    /*
+     *  REGARDLESS OF IN or OUTDOOR
+        there will always be the
+        foregrounds. Add them to the
+        scene and the environmentManager.
+     */
+    
     NSArray* backgrounds;
     NSArray* middlegrounds;
     NSArray* foregrounds;
     
-    self.background1 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame)) forSegmentType:BACKGROUND withEnvironmentManager:self.environmentManager];
-    self.background1.size = CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame));
-    self.background1.anchorPoint = CGPointZero;
-    self.background1.position = CGPointMake(0, 0);
-    self.background1.zPosition = BACKGROUND;
-    [self addChild:self.background1];
-    
-    self.background2 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame)) forSegmentType:BACKGROUND withEnvironmentManager:self.environmentManager];
-    self.background2.size = CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame));
-    self.background2.anchorPoint = CGPointZero;
-    self.background2.position = CGPointMake(self.background1.size.width-1, 0);
-    self.background2.zPosition = BACKGROUND;
-    [self addChild:self.background2];
-    
-    backgrounds = [NSArray arrayWithObjects:self.background1, self.background2, nil];
-    
-    //    self.middleground1 = [SKSpriteNode spriteNodeWithImageNamed:@"clouds"];
-    //    self.middleground1.size = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) / 2);
-    //    self.middleground1.anchorPoint = CGPointZero;
-    //    self.middleground1.position = CGPointMake(0, 0);
-    //    self.middleground1.zPosition = 0;
-    //    [self addChild:self.middleground1];
-    //
-    //    self.middleground2 = [SKSpriteNode spriteNodeWithImageNamed:@"clouds"];
-    //    self.middleground2.size = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) / 2);
-    //    self.middleground2.anchorPoint = CGPointZero;
-    //    self.middleground2.position = CGPointMake(self.middleground1.size.width-1, 0);
-    //    self.middleground2.zPosition = 0;
-    //    [self addChild:self.middleground2];
-    //
     self.foreground1 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) forSegmentType:FOREGROUND withEnvironmentManager:self.environmentManager];
+//    self.foreground1 = [[ScreenSegment alloc] initWithColor:[SKColor redColor] size:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
     self.foreground1.size = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+    self.foreground1.environmentManager = self.environmentManager;
     self.foreground1.anchorPoint = CGPointZero;
     self.foreground1.position = CGPointMake(0, 0);
     self.foreground1.zPosition = FOREGROUND;
     [self addChild:self.foreground1];
     
     self.foreground2 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) forSegmentType:FOREGROUND withEnvironmentManager:self.environmentManager];
+//    self.foreground2 = [[ScreenSegment alloc] initWithColor:[SKColor blueColor] size:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
     self.foreground2.size = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+    self.foreground2.environmentManager = self.environmentManager;
     self.foreground2.anchorPoint = CGPointZero;
     self.foreground2.position = CGPointMake(self.foreground1.size.width-1, 0);
     self.foreground2.zPosition = FOREGROUND;
@@ -192,17 +252,57 @@
     
     foregrounds = [NSArray arrayWithObjects:self.foreground1, self.foreground2, nil];
     
+    if (self.level % 2 == 0) {
+        
+        /*
+         *  OUTDOOR ENVIRONMENTS
+            will have middlegrounds and 
+            backgrounds. Add them to the
+            scene and the environmentManager.
+         */
+        
+        self.middleground1 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) forSegmentType:MIDDLEGROUND withEnvironmentManager:self.environmentManager];
+        self.middleground1.anchorPoint = CGPointZero;
+        self.middleground1.position = CGPointMake(0, 0);
+        self.middleground1.zPosition = MIDDLEGROUND;
+        [self addChild:self.middleground1];
+        
+        self.middleground2 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) forSegmentType:MIDDLEGROUND withEnvironmentManager:self.environmentManager];
+        self.middleground2.anchorPoint = CGPointZero;
+        self.middleground2.position = CGPointMake(self.middleground1.size.width-1, 0);
+        self.middleground2.zPosition = MIDDLEGROUND;
+        [self addChild:self.middleground2];
+        
+        middlegrounds = [NSArray arrayWithObjects:self.middleground1, self.middleground2, nil];
+        
+        self.background1 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame)) forSegmentType:BACKGROUND withEnvironmentManager:self.environmentManager];
+        self.background1.size = CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame));
+        self.background1.anchorPoint = CGPointZero;
+        self.background1.position = CGPointMake(0, 0);
+        self.background1.zPosition = BACKGROUND;
+        [self addChild:self.background1];
+        
+        self.background2 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame)) forSegmentType:BACKGROUND withEnvironmentManager:self.environmentManager];
+        self.background2.size = CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame));
+        self.background2.anchorPoint = CGPointZero;
+        self.background2.position = CGPointMake(self.background1.size.width-1, 0);
+        self.background2.zPosition = BACKGROUND;
+        [self addChild:self.background2];
+        
+        backgrounds = [NSArray arrayWithObjects:self.background1, self.background2, nil];
+        
+    }
+    
     [self.environmentManager configureEnvironmentWithBackgroundSegments:backgrounds middlegroundSegments:middlegrounds andForegroundSegments:foregrounds];
     
-    // Whether the scene is that of scrolling type or not, the environment manager will always place the first Screen Segment.
-    [self.background1 updateTextureWithOffset:0];
+    [self.foreground1 updateTextureWithOffset:0];
     
     if (self.level % 2 == 0) {
-        // If scene is of scroll type, set initial middleground and foreground.
+        // If scene is of scroll type, set initial background, middleground and foreground.
         
-        //[self.middleground1 setTexture:[self.environmentManager placeTextureInSegmentForType:MIDDLEGROUND atIndex:0]];
+        [self.middleground1 updateTextureWithOffset:0];
         
-        [self.foreground1 updateTextureWithOffset:0];
+        [self.background1 updateTextureWithOffset:0];
     }
 }
 
@@ -247,6 +347,8 @@
     healthLabel.text = @"100%";
     healthLabel.position = CGPointMake(CGRectGetWidth(moveLeftButton.frame) + CGRectGetWidth(healthImage.frame) + (kMoveButtonPadding * 2) + kHealthLabelPadding, CGRectGetHeight(self.frame) - (scoreLabel.frame.size.height + kMoveButtonPadding + kHealthImageTopPadding + kHealthLabelTopPadding));
     healthLabel.zPosition = 5;
+    [healthLabel setVerticalAlignmentMode:SKLabelVerticalAlignmentModeBottom];
+    [healthLabel setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeLeft];
     [self addChild:healthLabel];
     
     // Money Image
@@ -264,13 +366,15 @@
     moneyLabel.text = @"$100";
     moneyLabel.position = CGPointMake(CGRectGetWidth(self.frame) - (CGRectGetWidth(moneyImage.frame) + CGRectGetWidth(moveRightButton.frame) + (kMoveButtonPadding * 2) + kMoneyLabelPadding), CGRectGetHeight(self.frame) - (scoreLabel.frame.size.height + kMoveButtonPadding + kHealthImageTopPadding + kHealthLabelTopPadding));
     moneyLabel.zPosition = 5;
+    [moneyLabel setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeRight];
+    [moneyLabel setVerticalAlignmentMode:SKLabelVerticalAlignmentModeBottom];
     [self addChild:moneyLabel];
     
 }
 
 -(void)placeBoundaries {
     
-    self.floor = [SKSpriteNode spriteNodeWithColor:[UIColor cityFloorColor] size:CGSizeMake(CGRectGetWidth(self.frame), 20)];
+    self.floor = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(CGRectGetWidth(self.frame), 20)];
     self.floor.anchorPoint = CGPointMake(0, 0);
     self.floor.position = CGPointMake(0, 0);
     self.floor.zPosition = 5;
@@ -293,11 +397,11 @@
 
 -(void)setThePlayer {
     
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    sharedPlayer = [appDelegate getSharedPlayer];
+    
     // Set up the player node
-    self.player = [SKSpriteNode spriteNodeWithColor:[UIColor blueColor] size:CGSizeMake(0, 0)];
-    self.player.size = CGSizeMake(kPlayerWidth, kPlayerHeight);
-    self.player.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    self.player.zPosition = 5;
+    self.player = [sharedPlayer playerNodeFromPlayer];
     
     // add physics to player
     physicsBody = [SKPhysicsBody bodyWithBodies:@[]];
@@ -354,7 +458,7 @@
             
             // 4) If not touching the move buttons, then jump
             else {
-                [self jump];
+                [self startJumpTimer];
             }
             
         }
@@ -415,7 +519,7 @@
 //    }
     
     // simplify
-    
+    [self jump];
     self.isMovingLeft = NO;
     self.isMovingRight = NO;
     
@@ -458,37 +562,64 @@
 //    }
 //}
 
+-(void)startJumpTimer {
+    
+    /*
+     *  The player will only jump once
+        the user has lifted their finger
+        from the screen (touch up).
+     
+        This will set a BOOL that will
+        tell the player to jump if the 
+        BOOL is true. It will only be 
+        true momentarily.
+     */
+    
+    shouldJump = YES;
+    
+    touchesTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(setShouldJumpToFalse) userInfo:nil repeats:NO];
+}
+
+-(void)setShouldJumpToFalse {
+    shouldJump = NO;
+    [touchesTimer invalidate];
+    touchesTimer = nil;
+}
 
 -(void)jump {
     
     // Determine if trump was moving, if he was jump him in that direction with a boost
-    if (self.isMovingLeft) {
+    if (shouldJump) {
         
-        SKAction *shortJump = [SKAction moveTo:CGPointMake(CGRectGetMidX(self.player.frame) - kJumpAmountX, CGRectGetHeight(self.frame) - (kMoveLeftButtonHeight + kMoveButtonPadding + kPlayerHeight)) duration:kLongJumpDuration];
-        self.isJumping = YES;
-        [shortJump setSpeed:1.2];
-        shortJump.timingMode = SKActionTimingEaseInEaseOut;
-        [self.player runAction:shortJump completion:^{
-        }];
+        if (self.isMovingLeft) {
+            
+            SKAction *shortJump = [SKAction moveTo:CGPointMake(CGRectGetMidX(self.player.frame) - kJumpAmountX, CGRectGetHeight(self.frame) - (kMoveLeftButtonHeight + kMoveButtonPadding + kPlayerHeight)) duration:kLongJumpDuration];
+            self.isJumping = YES;
+            [shortJump setSpeed:1.2];
+            shortJump.timingMode = SKActionTimingEaseInEaseOut;
+            [self.player runAction:shortJump completion:^{
+            }];
+            
+        }
         
-    }
-    
-    else if (self.isMovingRight) {
+        else if (self.isMovingRight) {
+            
+            SKAction *shortJump = [SKAction moveTo:CGPointMake(CGRectGetMidX(self.player.frame) + kJumpAmountX, CGRectGetHeight(self.frame) - (kMoveLeftButtonHeight + kMoveButtonPadding + kPlayerHeight)) duration:kLongJumpDuration];
+            self.isJumping = YES;
+            [shortJump setSpeed:1.2];
+            shortJump.timingMode = SKActionTimingEaseInEaseOut;
+            [self.player runAction:shortJump completion:^{
+            }];
+            
+        }
         
-        SKAction *shortJump = [SKAction moveTo:CGPointMake(CGRectGetMidX(self.player.frame) + kJumpAmountX, CGRectGetHeight(self.frame) - (kMoveLeftButtonHeight + kMoveButtonPadding + kPlayerHeight)) duration:kLongJumpDuration];
-        self.isJumping = YES;
-        [shortJump setSpeed:1.2];
-        shortJump.timingMode = SKActionTimingEaseInEaseOut;
-        [self.player runAction:shortJump completion:^{
-        }];
-        
-    }
-    
-    else {
-        
-        SKAction *shortJump = [SKAction moveTo:CGPointMake(CGRectGetMidX(self.player.frame), CGRectGetMidY(self.frame)) duration:kShortJumpDuration];
-        self.isJumping = YES;
-        [self.player runAction:shortJump withKey:kShortJumpAnimation];
+        else {
+            
+            SKAction *shortJump = [SKAction moveTo:CGPointMake(CGRectGetMidX(self.player.frame), CGRectGetMidY(self.frame)) duration:kShortJumpDuration];
+            self.isJumping = YES;
+            [self.player runAction:shortJump withKey:kShortJumpAnimation];
+            
+        }
         
     }
 
@@ -750,22 +881,13 @@
     
     /*
      *  Player has requested to move LEFT.
-        
-        1) Perform animation to walk Player
-     
-        2) Check whether the player is 'frozen'.
-        This will determine whether we need to 
-        physically move the sprite around the 
-        screen.
-     
-        3) Move the Player around the screen
      */
     if (self.isMovingLeft==YES && self.isTouchingThefloor == YES && self.isJumping == NO && self.isRecentering == NO) {
         
         // 1) Perform animation to walk Player
         [self performWalkingAnimationInDirection:LEFT];
         
-        // 2) Check whether the player is 'frozen'.
+        // 2) Check whether the player is not 'frozen'.
         if (!self.isPlayerFrozen) {
             
             // 3) Move the Player around the screen
@@ -783,13 +905,15 @@
         }
         
     }
-    
+    /*
+     *  Player has requested to move RIGHT.
+     */
     else if (self.isMovingRight==YES && self.isTouchingThefloor == YES && self.isJumping == NO && self.isRecentering == NO) {
         
         // 1) Perform animation to walk Player
         [self performWalkingAnimationInDirection:RIGHT];
         
-        // 2) Check whether the player is 'frozen'.
+        // 2) Check whether the player is not 'frozen'.
         if (!self.isPlayerFrozen) {
             
             // 3) Move the Player around the screen
@@ -821,20 +945,30 @@
     self.environmentManager.scrollingDirection = self.scrollingDirection;
     [self.environmentManager updateCurrentOffsetWithOffset:kMovementAmount * self.player.speed];
     
-    // BACKGROUND
-    [self.environmentManager monitorBackgroundForUpdates];
-    [self.background1 scrollInDirection:self.scrollingDirection];
-    [self.background2 scrollInDirection:self.scrollingDirection];
-    
-    // MIDDLEGROUND
-//    [self.environmentManager monitorMiddlegroundForUpdates];
-//    [self.middleground1 scrollInDirection:self.scrollingDirection];
-//    [self.middleground2 scrollInDirection:self.scrollingDirection];
+    if (self.level % 2 == 0) {
+        // Only for outdoor levels
+        
+        // BACKGROUND
+        [self.environmentManager monitorBackgroundForUpdates];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self.background1 scrollInDirection:self.scrollingDirection];
+            [self.background2 scrollInDirection:self.scrollingDirection];
+        });
+        
+        // MIDDLEGROUND
+        [self.environmentManager monitorMiddlegroundForUpdates];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self.middleground1 scrollInDirection:self.scrollingDirection];
+            [self.middleground2 scrollInDirection:self.scrollingDirection];
+        });
+    }
     
     // FOREGROUND
     [self.environmentManager monitorForegroundForUpdates];
-    [self.foreground1 scrollInDirection:self.scrollingDirection];
-    [self.foreground2 scrollInDirection:self.scrollingDirection];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.foreground1 scrollInDirection:self.scrollingDirection];
+        [self.foreground2 scrollInDirection:self.scrollingDirection];
+    });
     
 }
 

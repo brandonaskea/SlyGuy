@@ -8,17 +8,17 @@
 
 #import "EnvironmentManager.h"
 #import "GameUtility.h"
+#import "BaseScene.h"
 
 @interface EnvironmentManager () {
     
     
 }
 
-@property (nonatomic, assign) Level             level;
 @property (nonatomic, strong) NSMutableArray    *backgroundTextures;
 @property (nonatomic, strong) NSMutableArray    *middlegroundTextures;
 @property (nonatomic, strong) NSMutableArray    *foregroundTextures;
-@property (nonatomic, assign) CGRect            sceneFrame;
+@property (nonatomic, weak)   BaseScene         *scene;
 
 @property (nonatomic, weak)   ScreenSegment     *background1;
 @property (nonatomic, weak)   ScreenSegment     *background2;
@@ -27,15 +27,19 @@
 @property (nonatomic, weak)   ScreenSegment     *foreground1;
 @property (nonatomic, weak)   ScreenSegment     *foreground2;
 
+@property (nonatomic, strong) SKTexture         *nextForegroundTextureToPlace;
+@property (nonatomic, strong) SKTexture         *nextBackgroundTextureToPlace;
+@property (nonatomic, strong) SKTexture         *nextMiddlegroundTextureToPlace;
+
 @end
 
 @implementation EnvironmentManager
 
--(id)initWithLevel:(Level)level sceneFrame:(CGRect)sceneFrame {
+-(id)initWithLevel:(Level)level andScene:(BaseScene *)scene {
     self = [super init];
     
     if (self) {
-        self.sceneFrame = sceneFrame;
+        self.scene = scene;
         self.level = level;
         [self setUpEnvironmentSpeeds];
         [self setUpEnvironmentForLevel];
@@ -49,14 +53,21 @@
 -(void)configureEnvironmentWithBackgroundSegments:(NSArray *)backgroundSegments middlegroundSegments:(NSArray *)middlegroundSegments andForegroundSegments:(NSArray *)foregroundSegments {
     
     // pick out the appropriate dynamic grounds and pair them in this class
-    self.background1 = [backgroundSegments objectAtIndex:0];
-    self.background2 = [backgroundSegments objectAtIndex:1];
+    if (backgroundSegments.count > 1) {
+        self.background1 = [backgroundSegments objectAtIndex:0];
+        self.background2 = [backgroundSegments objectAtIndex:1];
+    }
     
-    self.middleground1 = [middlegroundSegments objectAtIndex:0];
-    self.middleground2 = [middlegroundSegments objectAtIndex:1];
+    if (middlegroundSegments.count > 1) {
+        self.middleground1 = [middlegroundSegments objectAtIndex:0];
+        self.middleground2 = [middlegroundSegments objectAtIndex:1];
+    }
     
-    self.foreground1 = [foregroundSegments objectAtIndex:0];
-    self.foreground2 = [foregroundSegments objectAtIndex:1];
+    if (foregroundSegments.count > 1) {
+        self.foreground1 = [foregroundSegments objectAtIndex:0];
+        self.foreground2 = [foregroundSegments objectAtIndex:1];
+    }
+
 }
 
 -(void)setUpEnvironmentSpeeds {
@@ -85,6 +96,7 @@
     //    backgroundSpeed = middlegroundSpeed * 0.5;
     self.backgroundSpeed = self.middlegroundSpeed * 0.5;
 }
+
 -(void)setUpEnvironmentForLevel {
     
     /*
@@ -117,6 +129,19 @@
     
     // 2) Switch through the levels and set each level's different variables and style.
     switch (self.level) {
+            
+            // LEVEL 1
+        case ENCOUNTER: {
+            
+            self.backgroundTextures = [NSMutableArray new];
+            
+            // non scrolling environment - place single enviroment background
+            
+            [self.backgroundTextures addObject:kStrangerEncounterBackgroundImage];
+            
+            break;
+        }
+            
         case CITY: {
             
             // 3) Build the BACKGROUND segments.
@@ -149,17 +174,38 @@
                 [self.backgroundTextures addObject:randomBackgroundImage];
             }
             
-//            // 4) Build the MIDDLEGROUND segments.
-//            self.totalMiddlegroundScreenSegments = self.totalBackgroundScreenSegments * 3;
-//            
-//            self.middlegroundSegments = [NSMutableArray new];
-//            for (int i = 0; i < self.totalBackgroundScreenSegments; i++) {
-//                
-//                // this will create a middleground segment with random characteristcs and add it to the middlegroundSegments collection
-//                SKTexture *
-//                [self.middlegroundSegments addObject:middlegroundSegment];
-//            }
-//
+
+            // 4) Build the FOREGROUND segments.
+            self.totalMiddlegroundScreenSegments = self.totalBackgroundScreenSegments * 3;
+            
+            self.middlegroundTextures = [NSMutableArray new];
+            for (int i = 0; i < self.totalMiddlegroundScreenSegments; i++) {
+                
+                NSString *randomMiddlegroundImage;
+                
+                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleForegroundImagesCity + 1);
+                
+                if (randomNumber==1) {
+                    randomMiddlegroundImage = kCityForegroundImage1;
+                }
+                else if (randomNumber==2){
+                    randomMiddlegroundImage = kCityForegroundImage2;
+                }
+                else if (randomNumber==3){
+                    randomMiddlegroundImage = kCityForegroundImage3;
+                }
+                else if (randomNumber==4){
+                    randomMiddlegroundImage = kCityForegroundImage4;
+                }
+                else {
+                    randomMiddlegroundImage = kCityForegroundImage1;
+                }
+                
+                // this will create a foreground segment with random characteristcs and add it to the foregroundSegments collection
+                [self.middlegroundTextures addObject:randomMiddlegroundImage];
+            }
+
+            
             // 5) Build the FOREGROUND segments.
             self.totalForegroundScreenSegments = self.totalBackgroundScreenSegments * 5;
             
@@ -193,14 +239,159 @@
             break;
         }
             
+        case BEACH: {
+            
+            self.totalBackgroundScreenSegments = kTotalBackgroundSegmentsBeach * 3;
+            self.backgroundTextures = [NSMutableArray new];
+            
+            for (int i = 0; i < self.totalBackgroundScreenSegments; i++) {
+                
+                NSString *randomBackgroundImage;
+                
+                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleBackgroundImagesBeach + 1);
+                
+                if (randomNumber==1) {
+                    randomBackgroundImage = kBeachBackgroundImage1;
+                }
+                else if (randomNumber==2){
+                    randomBackgroundImage = kBeachBackgroundImage2;
+                }
+                else if (randomNumber==3){
+                    randomBackgroundImage = kBeachBackgroundImage3;
+                }
+                else if (randomNumber==4){
+                    randomBackgroundImage = kBeachBackgroundImage4;
+                }
+                else {
+                    randomBackgroundImage = kBeachBackgroundImage1;
+                }
+                
+                [self.backgroundTextures addObject:randomBackgroundImage];
+
+            }
+            
+            self.totalMiddlegroundScreenSegments = kTotalBackgroundSegmentsBeach * 3;
+            self.middlegroundTextures = [NSMutableArray new];
+            
+            for (int i = 0; i < self.totalMiddlegroundScreenSegments; i++) {
+                
+                NSString *randomMiddlegroundImage;
+                
+                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleMiddlegroundImagesBeach + 1);
+                
+                if (randomNumber==1) {
+                    randomMiddlegroundImage = kBeachMiddlegroundImage1;
+                }
+                else if (randomNumber==2){
+                    randomMiddlegroundImage = kBeachMiddlegroundImage2;
+                }
+                else if (randomNumber==3){
+                    randomMiddlegroundImage = kBeachMiddlegroundImage3;
+                }
+                else if (randomNumber==4){
+                    randomMiddlegroundImage = kBeachMiddlegroundImage4;
+                }
+                else {
+                    randomMiddlegroundImage = kBeachMiddlegroundImage1;
+                }
+                
+                [self.middlegroundTextures addObject:randomMiddlegroundImage];
+
+            }
+            
+            
+            self.totalForegroundScreenSegments = kTotalBackgroundSegmentsBeach * 5;
+            self.foregroundTextures = [NSMutableArray new];
+            
+            for (int i = 0; i < self.totalForegroundScreenSegments; i++) {
+                
+                NSString *randomForegroundImage;
+                
+                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleForegroundImagesBeach + 1);
+                
+                if (randomNumber==1) {
+                    randomForegroundImage = kBeachForegroundImage1;
+                }
+                else if (randomNumber==2){
+                    randomForegroundImage = kBeachForegroundImage2;
+                }
+                else if (randomNumber==3){
+                    randomForegroundImage = kBeachForegroundImage3;
+                }
+                else if (randomNumber==4){
+                    randomForegroundImage = kBeachForegroundImage4;
+                }
+                else {
+                    randomForegroundImage = kBeachForegroundImage2;
+                }
+                
+                [self.foregroundTextures addObject:randomForegroundImage];
+                
+            }
+
+            
+            break;
+        }
+            
+        case SCHOOL: {
+            
+            self.totalForegroundScreenSegments = kTotalForegroundSegmentsSchool;
+            self.foregroundTextures = [NSMutableArray new];
+            
+            for (int i = 0; i < self.totalForegroundScreenSegments; i++) {
+                
+                NSString *randomForegroundImage;
+                
+                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleForegroundImagesSchool + 1);
+                
+                if (randomNumber==1) {
+                    randomForegroundImage = kSchoolForegroundImage1;
+                }
+                else if (randomNumber==2){
+                    randomForegroundImage = kSchoolForegroundImage2;
+                }
+                else if (randomNumber==3){
+                    randomForegroundImage = kSchoolForegroundImage3;
+                }
+                else if (randomNumber==4){
+                    randomForegroundImage = kSchoolForegroundImage4;
+                }
+                else if (randomNumber==5){
+                    randomForegroundImage = kSchoolForegroundImage5;
+                }
+                else if (randomNumber==6){
+                    randomForegroundImage = kSchoolForegroundImage6;
+                }
+                else if (randomNumber==7){
+                    randomForegroundImage = kSchoolForegroundImage7;
+                }
+                else if (randomNumber==8){
+                    randomForegroundImage = kSchoolForegroundImage8;
+                }
+                else if (randomNumber==9){
+                    randomForegroundImage = kSchoolForegroundImage9;
+                }
+                else if (randomNumber==10){
+                    randomForegroundImage = kSchoolForegroundImage10;
+                }
+                else {
+                    randomForegroundImage = kSchoolForegroundImage8;
+                }
+                
+                [self.foregroundTextures addObject:randomForegroundImage];
+                
+            }
+            
+        }
+            
         default:
             break;
     }
     
-    for (int i = 0; i< self.foregroundTextures.count; i++) {
-        NSString *segment = [self.foregroundTextures objectAtIndex:i];
-        NSLog(@"%@ %d",segment, i);
-    }
+//    for (int i = 0; i< self.middlegroundTextures.count; i++) {
+//        NSString *segment = [self.middlegroundTextures objectAtIndex:i];
+//        NSLog(@"%@ %d",segment, i);
+//    }
 }
 
 #pragma mark - UPDATE
@@ -248,24 +439,6 @@
                 
                 // place it behind background1
                 self.background2.position = CGPointMake(self.background1.position.x - self.background1.size.width, self.background2.position.y);
-                
-                // 5) Update EnvironmentManager
-                // This is where we will place the look of each segment
-                // In order to do so we must remove the segment we placed on it before
-                // Then we will add the new segment it is place.
-                
-                //            if (self.environmentManager.currentBackgroundScreenSegment < self.environmentManager.totalBackgroundScreenSegments) {
-                //                if (self.environmentManager.currentBackgroundScreenSegment == 0) {
-                //                    self.environmentManager.currentBackgroundScreenSegment = 1;
-                //                }
-                //                if (self.environmentManager.currentBackgroundScreenSegment > 0) {
-                //                    self.environmentManager.currentBackgroundScreenSegment += 1;
-                //                    if (shouldSkipScreenSegmentBackground) {
-                //                        self.environmentManager.currentBackgroundScreenSegment += 1;
-                //                        shouldSkipScreenSegmentBackground = NO;
-                //                    }
-                //                }
-                //            }
                 
                 NSInteger largestDequeuedScreenSegment;
                 
@@ -371,19 +544,19 @@
             
             // LEFT
             
-            if (self.background1.position.x > self.background1.size.width){
+            if (self.middleground1.position.x > self.middleground1.size.width){
                 
                 // place it behind background2
-                self.background1.position = CGPointMake(self.background2.position.x - self.background2.size.width, self.background1.position.y);
+                self.middleground1.position = CGPointMake(self.middleground2.position.x - self.middleground2.size.width, self.middleground1.position.y);
                 
                 
                 NSInteger largestDequeuedScreenSegment;
                 
-                if (self.background1.index > self.background2.index) {
+                if (self.middleground1.index > self.middleground2.index) {
                     largestDequeuedScreenSegment = self.background1.index;
                 }
                 else {
-                    largestDequeuedScreenSegment = self.background2.index;
+                    largestDequeuedScreenSegment = self.middleground2.index;
                 }
                 
                 NSInteger nextScreenSegmentToDequeue = largestDequeuedScreenSegment + 1;
@@ -393,40 +566,22 @@
                 //                nextScreenSegmentToDequeue = 1;
                 //            }
                 
-                [self.background1 updateTextureWithOffset:nextScreenSegmentToDequeue];
+                [self.middleground1 updateTextureWithOffset:nextScreenSegmentToDequeue];
             }
             
             // 4) same as above but for background2 instead
-            if (self.background2.position.x > self.background2.size.width) {
+            if (self.middleground2.position.x > self.middleground2.size.width) {
                 
                 // place it behind background1
-                self.background2.position = CGPointMake(self.background1.position.x - self.background1.size.width, self.background2.position.y);
-                
-                // 5) Update EnvironmentManager
-                // This is where we will place the look of each segment
-                // In order to do so we must remove the segment we placed on it before
-                // Then we will add the new segment it is place.
-                
-                //            if (self.environmentManager.currentBackgroundScreenSegment < self.environmentManager.totalBackgroundScreenSegments) {
-                //                if (self.environmentManager.currentBackgroundScreenSegment == 0) {
-                //                    self.environmentManager.currentBackgroundScreenSegment = 1;
-                //                }
-                //                if (self.environmentManager.currentBackgroundScreenSegment > 0) {
-                //                    self.environmentManager.currentBackgroundScreenSegment += 1;
-                //                    if (shouldSkipScreenSegmentBackground) {
-                //                        self.environmentManager.currentBackgroundScreenSegment += 1;
-                //                        shouldSkipScreenSegmentBackground = NO;
-                //                    }
-                //                }
-                //            }
+                self.middleground2.position = CGPointMake(self.middleground1.position.x - self.middleground1.size.width, self.middleground2.position.y);
                 
                 NSInteger largestDequeuedScreenSegment;
                 
-                if (self.background1.index > self.background2.index) {
-                    largestDequeuedScreenSegment = self.background1.index;
+                if (self.middleground1.index > self.middleground2.index) {
+                    largestDequeuedScreenSegment = self.middleground1.index;
                 }
                 else {
-                    largestDequeuedScreenSegment = self.background2.index;
+                    largestDequeuedScreenSegment = self.middleground2.index;
                 }
                 
                 NSInteger nextScreenSegmentToDequeue = largestDequeuedScreenSegment + 1;
@@ -436,7 +591,7 @@
                 //                nextScreenSegmentToDequeue = 1;
                 //            }
                 
-                [self.background2 updateTextureWithOffset:nextScreenSegmentToDequeue];
+                [self.middleground2 updateTextureWithOffset:nextScreenSegmentToDequeue];
             }
             
             break;
@@ -446,17 +601,17 @@
             
             // RIGHT
             
-            if (self.background1.position.x < -self.background1.size.width){
+            if (self.middleground1.position.x < -self.middleground1.size.width){
                 
-                self.background1.position = CGPointMake(self.background2.position.x + self.background2.size.width, self.background1.position.y);
+                self.middleground1.position = CGPointMake(self.middleground2.position.x + self.middleground2.size.width, self.middleground1.position.y);
                 
                 NSInteger smallestDequeuedScreenSegment;
                 
-                if (self.background1.index < self.background2.index) {
-                    smallestDequeuedScreenSegment = self.background1.index;
+                if (self.middleground1.index < self.middleground2.index) {
+                    smallestDequeuedScreenSegment = self.middleground1.index;
                 }
                 else {
-                    smallestDequeuedScreenSegment = self.background2.index;
+                    smallestDequeuedScreenSegment = self.middleground2.index;
                 }
                 
                 NSInteger nextScreenSegmentToDequeue = smallestDequeuedScreenSegment - 1;
@@ -466,13 +621,13 @@
                 //                nextScreenSegmentToDequeue = 1;
                 //            }
                 
-                [self.background1 updateTextureWithOffset:nextScreenSegmentToDequeue];
+                [self.middleground1 updateTextureWithOffset:nextScreenSegmentToDequeue];
                 
             }
             
-            if (self.background2.position.x < -self.background2.size.width) {
+            if (self.middleground2.position.x < -self.middleground2.size.width) {
                 
-                self.background2.position = CGPointMake(self.background1.position.x + self.background1.size.width, self.background2.position.y);
+                self.middleground2.position = CGPointMake(self.middleground1.position.x + self.middleground1.size.width, self.middleground2.position.y);
                 
                 // 5) Update EnvironmentManager
                 // This is where we will place the look of each segment
@@ -480,11 +635,11 @@
                 // Then we will add the new segment it is place.
                 NSInteger smallestDequeuedScreenSegment;
                 
-                if (self.background1.index < self.background2.index) {
-                    smallestDequeuedScreenSegment = self.background1.index;
+                if (self.middleground1.index < self.middleground2.index) {
+                    smallestDequeuedScreenSegment = self.middleground1.index;
                 }
                 else {
-                    smallestDequeuedScreenSegment = self.background2.index;
+                    smallestDequeuedScreenSegment = self.middleground2.index;
                 }
                 
                 NSInteger nextScreenSegmentToDequeue = smallestDequeuedScreenSegment - 1;
@@ -494,7 +649,7 @@
                 //                nextScreenSegmentToDequeue = 1;
                 //            }
                 
-                [self.background2 updateTextureWithOffset:nextScreenSegmentToDequeue];
+                [self.middleground2 updateTextureWithOffset:nextScreenSegmentToDequeue];
                 
             }
             
@@ -515,27 +670,9 @@
             
             // LEFT
             
-            NSLog(@"FG1 x %f | FG1 w %f | FG2 x %f | FG2 w %f", self.foreground1.position.x, self.foreground1.size.width, self.foreground2.position.x, self.foreground2.size.width);
-            
             if (self.foreground1.position.x > self.foreground1.size.width){
                 
                 self.foreground1.position = CGPointMake(self.foreground2.position.x - self.foreground2.size.width, self.foreground1.position.y);
-                
-                //            if (self.foreground2.index > self.foreground1.index) {
-                //
-                //                NSInteger difference = self.foreground2.index - self.foreground1.index;
-                //
-                //                self.environmentManager.currentForegroundScreenSegment += difference + shouldSkipScreenSegmentForeground;
-                //                shouldSkipScreenSegmentForeground = 0;
-                //            }
-                //            else {
-                //                if (self.environmentManager.currentForegroundScreenSegment == 0) {
-                //                    self.environmentManager.currentForegroundScreenSegment = 1;
-                //                }
-                //                else if (self.environmentManager.currentForegroundScreenSegment >= 0) {
-                //                    self.environmentManager.currentForegroundScreenSegment += 1;
-                //                }
-                //            }
                 
                 
                 NSInteger largestDequeuedScreenSegment;
@@ -563,27 +700,6 @@
             if (self.foreground2.position.x > self.foreground2.size.width) {
                 
                 self.foreground2.position = CGPointMake(self.foreground1.position.x - self.foreground1.size.width, self.foreground2.position.y);
-                
-                
-                //            if (self.foreground2.index > self.foreground1.index) {
-                //
-                //                NSInteger difference = self.foreground2.index - self.foreground1.index;
-                //
-                //                self.environmentManager.currentForegroundScreenSegment += difference + shouldSkipScreenSegmentForeground;
-                //                shouldSkipScreenSegmentForeground = 0;
-                //            }
-                //            else {
-                //                if (self.environmentManager.currentForegroundScreenSegment == 0) {
-                //                    self.environmentManager.currentForegroundScreenSegment = 1;
-                //                }
-                //                else if (self.environmentManager.currentForegroundScreenSegment >= 0) {
-                //                    self.environmentManager.currentForegroundScreenSegment += 1;
-                //                    if (shouldSkipScreenSegmentForeground) {
-                //                        self.environmentManager.currentForegroundScreenSegment += 1;
-                //                        shouldSkipScreenSegmentForeground = NO;
-                //                    }
-                //                }
-                //            }
                 
                 NSInteger largestDequeuedScreenSegment;
                 
@@ -704,13 +820,60 @@
     }
 }
 
--(NSString *)placeTextureInSegmentForType:(SegmentType)segmentType atIndex:(NSInteger)index {
+#pragma mark - TEXTURE PLACEMENT
+
+-(SKTexture *)placeTextureInSegmentForType:(SegmentType)segmentType atIndex:(NSInteger)index {
     
     /*
-     *  This method will return the string
-        of the texture name that needs to
-        be placed in the Screen Segment.
+     *  Check if there is a pre-
+        loaded texture we can 
+        place, if not then get one
+        for the index.
      */
+    SKTexture *texture;
+    
+    switch (segmentType) {
+        case BACKGROUND:
+            
+            if (self.nextBackgroundTextureToPlace) {
+                texture = self.nextBackgroundTextureToPlace;
+            }
+            
+            break;
+            
+        case MIDDLEGROUND:
+            
+            if (self.nextMiddlegroundTextureToPlace) {
+                texture = self.nextMiddlegroundTextureToPlace;
+            }
+            
+            break;
+            
+        case FOREGROUND:
+            
+            if (self.nextForegroundTextureToPlace) {
+                texture = self.nextForegroundTextureToPlace;
+            }
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    if (!texture) {
+        texture = [SKTexture textureWithImageNamed:[self getTextureImageNameForSegment:segmentType atIndex:index]];
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self prepareNextSegmentsForPlacementWithType:segmentType atIndex:(NSInteger)index];
+    });
+    
+    return texture;
+}
+
+-(NSString *)getTextureImageNameForSegment:(SegmentType)segmentType atIndex:(NSInteger)index {
+    
     NSString *imageNameForTexture;
     
     switch (segmentType) {
@@ -732,6 +895,80 @@
     }
     
     return imageNameForTexture;
+    
+}
+
+-(void)prepareNextSegmentsForPlacementWithType:(SegmentType)segmentType atIndex:(NSInteger)index {
+    
+    NSInteger nextIndex;
+    NSInteger maxIndex;
+    
+    // Find the maximum (total) segments
+    switch (segmentType) {
+        case BACKGROUND:
+            
+            maxIndex = self.backgroundTextures.count;
+            
+            break;
+            
+        case MIDDLEGROUND:
+            
+            maxIndex = self.middlegroundTextures.count;
+            
+            break;
+            
+        case FOREGROUND:
+            
+            maxIndex = self.foregroundTextures.count;
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    // Determine which index should be next based upon scrolling direction
+    if (self.scrollingDirection == LEFT) {
+        if (index == maxIndex) {
+            nextIndex = index;
+        }
+        else {
+            nextIndex = index + 1;
+        }
+    }
+    else {
+        if (index > 0) {
+            nextIndex = index - 1;
+        }
+        else {
+            nextIndex = index;
+        }
+    }
+    
+    // Store the texture for that index
+    switch (segmentType) {
+        case BACKGROUND:
+            
+            self.nextBackgroundTextureToPlace = [SKTexture textureWithImageNamed:[self getTextureImageNameForSegment:BACKGROUND atIndex:nextIndex]];
+            
+            break;
+            
+        case MIDDLEGROUND:
+            
+            self.nextMiddlegroundTextureToPlace = [SKTexture textureWithImageNamed:[self getTextureImageNameForSegment:MIDDLEGROUND atIndex:nextIndex]];
+            
+            break;
+            
+        case FOREGROUND:
+            
+            self.nextForegroundTextureToPlace = [SKTexture textureWithImageNamed:[self getTextureImageNameForSegment:FOREGROUND atIndex:nextIndex]];
+            
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 @end

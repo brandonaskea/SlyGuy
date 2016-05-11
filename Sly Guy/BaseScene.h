@@ -31,7 +31,7 @@
 @property (nonatomic, assign) SceneType sceneType;
 @property (nonatomic, strong) EnvironmentManager *environmentManager;
 
-// Background
+// Dynamic Screen Segments
 @property (nonatomic, strong) ScreenSegment *background1;
 @property (nonatomic, strong) ScreenSegment *background2;
 @property (nonatomic, strong) ScreenSegment *middleground1;
@@ -44,9 +44,12 @@
 @property (strong, nonatomic) SKSpriteNode *rightWall;
 @property (strong, nonatomic) SKSpriteNode *floor;
 
--(void)setUpLevel:(Level)level;
+-(void)setUpLevel;
 -(BOOL)shouldBeginScrollingInDirection:(Direction)direction;
 -(void)pauseGame;
 -(void)unpauseGame;
+-(void)breakdownGame;
++(instancetype)unarchiveFromFile:(NSString *)file;
+-(void)configureLevel:(Level)level;
 
 @end

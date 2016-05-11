@@ -11,42 +11,6 @@
 
 @implementation ScrollScene
 
--(void)setUpLevel:(Level)level {
-    
-    /*
-     *  Determine which level the user wishes
-     to play and build that level. This
-     would include setting the background
-     images as well as determining which
-     bad guys will come at the player, ect.
-     */
-    
-    switch (level) {
-            
-        case CITY:
-            /*
-             *  EP. 3) ATLANTA
-                Player is driving in the streets of Atlanta.
-                They have begun their long journey to the
-                promised land.
-             */
-            self.level = CITY;
-            self.travelType = WALKING;
-            self.sceneType = STILL;
-            self.sceneType = SCROLLABLE;
-            self.backgroundColor = [SKColor skyColor];
-            self.scene.backgroundColor = [SKColor skyColor];
-            self.floor.color = [SKColor cityFloorColor];
-
-            break;
-            
-        default:
-            break;
-    }
-    
-    NSLog(@"Set Up SCROLLABLE Level %lu", (unsigned long)level);
-}
-
 #pragma mark - USER ACTIONS
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event  {

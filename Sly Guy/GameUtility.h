@@ -16,5 +16,6 @@
 +(NSInteger)getRandomNumberBetween:(NSInteger)one andTwo:(NSInteger)two;
 +(NSInteger)getNumberOfEvenlySpacedItemsWithWidth:(CGFloat)width inEnvironmentLength:(NSInteger)environmentLength withSpacing:(CGFloat)spacing;
 +(NSInteger)getEnvironmentLengthForScreenWidth:(CGFloat)screenWidth totalScreenLengths:(NSInteger)screenLengths;
-+(CGRect)getLaunchImageRectForScreenSize;
++(CGRect)getLaunchImageRectForScreenSize:(CGRect)screenSize;
++(CGFloat)getLaunchImageYOffset;
 @end

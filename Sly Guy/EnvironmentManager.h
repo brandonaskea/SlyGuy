@@ -13,6 +13,7 @@
 
 @interface EnvironmentManager : NSObject
 
+@property (nonatomic, assign) Level             level;
 @property (nonatomic, assign) NSInteger currentOffset;
 @property (nonatomic, assign) NSInteger currentScreenOffset;
 @property (nonatomic, assign) NSInteger largestScreenOffset;
@@ -28,13 +29,13 @@
 
 @property (nonatomic, assign) Direction scrollingDirection;
 
--(id)initWithLevel:(Level)level sceneFrame:(CGRect)sceneFrame;
+-(id)initWithLevel:(Level)level andScene:(id)scene;
 -(void)updateCurrentOffsetWithOffset:(NSInteger)offset;
 -(void)monitorBackgroundForUpdates;
 -(void)monitorMiddlegroundForUpdates;
 -(void)monitorForegroundForUpdates;
 
--(NSString *)placeTextureInSegmentForType:(SegmentType)segmentType atIndex:(NSInteger)index;
+-(SKTexture *)placeTextureInSegmentForType:(SegmentType)segmentType atIndex:(NSInteger)index;
 -(void)configureEnvironmentWithBackgroundSegments:(NSArray *)backgroundSegments middlegroundSegments:(NSArray *)middlegroundSegments andForegroundSegments:(NSArray *)foregroundSegments;
 
 @end

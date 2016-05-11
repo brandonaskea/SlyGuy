@@ -22,6 +22,8 @@
 @property (nonatomic, assign) Direction         scrollDirection;
 @property (nonatomic, strong) SKSpriteNode       *leftEdgeDetector;
 @property (nonatomic, strong) SKSpriteNode       *rightEdgeDetector;
+@property (nonatomic, strong) EnvironmentManager    *environmentManager;
+
 
 -(id)initWithSize:(CGSize)size forSegmentType:(SegmentType)segmentType withEnvironmentManager:(EnvironmentManager *)environmentManager;
 -(void)updateTextureWithOffset:(NSInteger)offset;

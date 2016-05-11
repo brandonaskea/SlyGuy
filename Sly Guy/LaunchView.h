@@ -11,6 +11,7 @@
 @protocol LaunchViewDelegate <NSObject>
 
 @required
+-(void)willDismissLaunchView;
 -(void)didDismissLaunchView;
 
 @end

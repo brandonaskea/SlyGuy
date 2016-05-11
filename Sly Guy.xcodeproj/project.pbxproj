@@ -12,14 +12,9 @@
 		F80B92521CC990B300656EA2 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F80B92511CC990B300656EA2 /* art.scnassets */; };
 		F80B92581CC990B300656EA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F80B92561CC990B300656EA2 /* Main.storyboard */; };
 		F80B925A1CC990B300656EA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F80B92591CC990B300656EA2 /* Assets.xcassets */; };
-		F80B925D1CC990B300656EA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F80B925B1CC990B300656EA2 /* LaunchScreen.storyboard */; };
 		F80B92681CC9919200656EA2 /* BaseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92671CC9919200656EA2 /* BaseScene.m */; };
 		F80B926E1CC991BF00656EA2 /* StillScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B926A1CC991BF00656EA2 /* StillScene.m */; };
-		F80B926F1CC991BF00656EA2 /* TheStillScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B926C1CC991BF00656EA2 /* TheStillScene.m */; };
-		F80B92701CC991BF00656EA2 /* TheStillScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F80B926D1CC991BF00656EA2 /* TheStillScene.sks */; };
 		F80B92781CC9923400656EA2 /* ScrollScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92741CC9923400656EA2 /* ScrollScene.m */; };
-		F80B92791CC9923400656EA2 /* TheScrollScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92761CC9923400656EA2 /* TheScrollScene.m */; };
-		F80B927A1CC9923400656EA2 /* TheScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F80B92771CC9923400656EA2 /* TheScrollScene.sks */; };
 		F80B927F1CC9929000656EA2 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B927E1CC9929000656EA2 /* GameViewController.m */; };
 		F80B92851CC992B100656EA2 /* GameUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92821CC992B100656EA2 /* GameUtility.m */; };
 		F80B92861CC992B100656EA2 /* UIColor+GameColors.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92841CC992B100656EA2 /* UIColor+GameColors.m */; };
@@ -28,6 +23,18 @@
 		F80B92961CC9944600656EA2 /* SwipeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92911CC9944600656EA2 /* SwipeMenu.m */; };
 		F80B92971CC9944600656EA2 /* SwipeMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92931CC9944600656EA2 /* SwipeMenuCell.m */; };
 		F80B92981CC9944600656EA2 /* SwipeMenuHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F80B92951CC9944600656EA2 /* SwipeMenuHeaderView.m */; };
+		F81645661CD2BD9000A3D5C5 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = F81645651CD2BD9000A3D5C5 /* Player.m */; };
+		F81E4BAB1CE1983E001D3C3C /* SchoolScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F81E4BAA1CE1983E001D3C3C /* SchoolScene.m */; };
+		F81E4BAD1CE19892001D3C3C /* SchoolScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F81E4BAC1CE19892001D3C3C /* SchoolScene.sks */; };
+		F81E4BAF1CE1990B001D3C3C /* HomeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F81E4BAE1CE1990B001D3C3C /* HomeScene.sks */; };
+		F81E4BB21CE1991A001D3C3C /* HomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F81E4BB11CE1991A001D3C3C /* HomeScene.m */; };
+		F81E4BB71CE2C541001D3C3C /* BeachScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F81E4BB61CE2C541001D3C3C /* BeachScene.m */; };
+		F81E4BB91CE2C558001D3C3C /* BeachScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F81E4BB81CE2C558001D3C3C /* BeachScene.sks */; };
+		F81E4BBC1CE3090D001D3C3C /* CityScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F81E4BBB1CE3090D001D3C3C /* CityScene.sks */; };
+		F81E4BBF1CE30959001D3C3C /* CityScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F81E4BBE1CE30959001D3C3C /* CityScene.m */; };
+		F8D803231CD34B90003AB7E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8D803221CD34B90003AB7E1 /* LaunchScreen.storyboard */; };
+		F8D803251CD34C31003AB7E1 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8D803241CD34C31003AB7E1 /* Launch.storyboard */; };
+		F8D803271CD38A3D003AB7E1 /* LogoTempLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = F8D803261CD38A3D003AB7E1 /* LogoTempLaunch.png */; };
 		F8F8A7EB1CD0AA1D0098533D /* LaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F8A7EA1CD0AA1D0098533D /* LaunchView.m */; };
 		F8F8A7EE1CD0B04E0098533D /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F8A7ED1CD0B04E0098533D /* MainMenuViewController.m */; };
 /* End PBXBuildFile section */
@@ -40,20 +47,13 @@
 		F80B92511CC990B300656EA2 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		F80B92571CC990B300656EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F80B92591CC990B300656EA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F80B925C1CC990B300656EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F80B925E1CC990B300656EA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F80B92661CC9919200656EA2 /* BaseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseScene.h; sourceTree = "<group>"; };
 		F80B92671CC9919200656EA2 /* BaseScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseScene.m; sourceTree = "<group>"; };
 		F80B92691CC991BF00656EA2 /* StillScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StillScene.h; sourceTree = "<group>"; };
 		F80B926A1CC991BF00656EA2 /* StillScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StillScene.m; sourceTree = "<group>"; };
-		F80B926B1CC991BF00656EA2 /* TheStillScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheStillScene.h; sourceTree = "<group>"; };
-		F80B926C1CC991BF00656EA2 /* TheStillScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheStillScene.m; sourceTree = "<group>"; };
-		F80B926D1CC991BF00656EA2 /* TheStillScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TheStillScene.sks; sourceTree = "<group>"; };
 		F80B92731CC9923400656EA2 /* ScrollScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollScene.h; sourceTree = "<group>"; };
 		F80B92741CC9923400656EA2 /* ScrollScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollScene.m; sourceTree = "<group>"; };
-		F80B92751CC9923400656EA2 /* TheScrollScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheScrollScene.h; sourceTree = "<group>"; };
-		F80B92761CC9923400656EA2 /* TheScrollScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheScrollScene.m; sourceTree = "<group>"; };
-		F80B92771CC9923400656EA2 /* TheScrollScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TheScrollScene.sks; sourceTree = "<group>"; };
 		F80B927D1CC9929000656EA2 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		F80B927E1CC9929000656EA2 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		F80B92801CC992B100656EA2 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -71,6 +71,23 @@
 		F80B92931CC9944600656EA2 /* SwipeMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeMenuCell.m; sourceTree = "<group>"; };
 		F80B92941CC9944600656EA2 /* SwipeMenuHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeMenuHeaderView.h; sourceTree = "<group>"; };
 		F80B92951CC9944600656EA2 /* SwipeMenuHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeMenuHeaderView.m; sourceTree = "<group>"; };
+		F81645641CD2BD9000A3D5C5 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		F81645651CD2BD9000A3D5C5 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		F81E4BA91CE1983E001D3C3C /* SchoolScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolScene.h; sourceTree = "<group>"; };
+		F81E4BAA1CE1983E001D3C3C /* SchoolScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolScene.m; sourceTree = "<group>"; };
+		F81E4BAC1CE19892001D3C3C /* SchoolScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SchoolScene.sks; sourceTree = "<group>"; };
+		F81E4BAE1CE1990B001D3C3C /* HomeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HomeScene.sks; sourceTree = "<group>"; };
+		F81E4BB01CE1991A001D3C3C /* HomeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScene.h; sourceTree = "<group>"; };
+		F81E4BB11CE1991A001D3C3C /* HomeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScene.m; sourceTree = "<group>"; };
+		F81E4BB51CE2C541001D3C3C /* BeachScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeachScene.h; sourceTree = "<group>"; };
+		F81E4BB61CE2C541001D3C3C /* BeachScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeachScene.m; sourceTree = "<group>"; };
+		F81E4BB81CE2C558001D3C3C /* BeachScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BeachScene.sks; sourceTree = "<group>"; };
+		F81E4BBB1CE3090D001D3C3C /* CityScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CityScene.sks; sourceTree = "<group>"; };
+		F81E4BBD1CE30959001D3C3C /* CityScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityScene.h; sourceTree = "<group>"; };
+		F81E4BBE1CE30959001D3C3C /* CityScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityScene.m; sourceTree = "<group>"; };
+		F8D803221CD34B90003AB7E1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F8D803241CD34C31003AB7E1 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		F8D803261CD38A3D003AB7E1 /* LogoTempLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoTempLaunch.png; sourceTree = "<group>"; };
 		F8F8A7E91CD0AA1D0098533D /* LaunchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchView.h; sourceTree = "<group>"; };
 		F8F8A7EA1CD0AA1D0098533D /* LaunchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchView.m; sourceTree = "<group>"; };
 		F8F8A7EC1CD0B04E0098533D /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
@@ -111,10 +128,11 @@
 				F80B924F1CC990B300656EA2 /* AppDelegate.m */,
 				F80B92641CC9913200656EA2 /* Storyboards, Nibs */,
 				F80B92711CC991FB00656EA2 /* Engine */,
-				F80B927C1CC9925300656EA2 /* Scenes */,
+				F80B927C1CC9925300656EA2 /* Levels */,
 				F80B928F1CC9934F00656EA2 /* Managers */,
 				F80B92881CC992D100656EA2 /* ViewControllers */,
 				F80B92991CC9944B00656EA2 /* Custom Views */,
+				F81645671CD2BD9F00A3D5C5 /* Model */,
 				F80B92651CC9916600656EA2 /* Images */,
 				F80B92871CC992B700656EA2 /* Utility */,
 				F80B925E1CC990B300656EA2 /* Info.plist */,
@@ -135,7 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				F80B92561CC990B300656EA2 /* Main.storyboard */,
-				F80B925B1CC990B300656EA2 /* LaunchScreen.storyboard */,
+				F8D803221CD34B90003AB7E1 /* LaunchScreen.storyboard */,
+				F8D803241CD34C31003AB7E1 /* Launch.storyboard */,
 			);
 			name = "Storyboards, Nibs";
 			sourceTree = "<group>";
@@ -143,6 +162,7 @@
 		F80B92651CC9916600656EA2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F8D803261CD38A3D003AB7E1 /* LogoTempLaunch.png */,
 				F80B92591CC990B300656EA2 /* Assets.xcassets */,
 				F80B92511CC990B300656EA2 /* art.scnassets */,
 			);
@@ -154,6 +174,8 @@
 			children = (
 				F80B92661CC9919200656EA2 /* BaseScene.h */,
 				F80B92671CC9919200656EA2 /* BaseScene.m */,
+				F80B92721CC9920400656EA2 /* Still Scene */,
+				F80B927B1CC9923A00656EA2 /* Scroll Scene */,
 			);
 			name = Engine;
 			sourceTree = "<group>";
@@ -163,9 +185,6 @@
 			children = (
 				F80B92691CC991BF00656EA2 /* StillScene.h */,
 				F80B926A1CC991BF00656EA2 /* StillScene.m */,
-				F80B926B1CC991BF00656EA2 /* TheStillScene.h */,
-				F80B926C1CC991BF00656EA2 /* TheStillScene.m */,
-				F80B926D1CC991BF00656EA2 /* TheStillScene.sks */,
 			);
 			name = "Still Scene";
 			sourceTree = "<group>";
@@ -175,20 +194,19 @@
 			children = (
 				F80B92731CC9923400656EA2 /* ScrollScene.h */,
 				F80B92741CC9923400656EA2 /* ScrollScene.m */,
-				F80B92751CC9923400656EA2 /* TheScrollScene.h */,
-				F80B92761CC9923400656EA2 /* TheScrollScene.m */,
-				F80B92771CC9923400656EA2 /* TheScrollScene.sks */,
 			);
 			name = "Scroll Scene";
 			sourceTree = "<group>";
 		};
-		F80B927C1CC9925300656EA2 /* Scenes */ = {
+		F80B927C1CC9925300656EA2 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
-				F80B92721CC9920400656EA2 /* Still Scene */,
-				F80B927B1CC9923A00656EA2 /* Scroll Scene */,
+				F81E4BB31CE199A8001D3C3C /* Home */,
+				F81E4BB41CE199B0001D3C3C /* School */,
+				F81E4BC01CE30960001D3C3C /* City */,
+				F81E4BBA1CE305AB001D3C3C /* Beach */,
 			);
-			name = Scenes;
+			name = Levels;
 			sourceTree = "<group>";
 		};
 		F80B92871CC992B700656EA2 /* Utility */ = {
@@ -238,6 +256,55 @@
 				F8F8A7EA1CD0AA1D0098533D /* LaunchView.m */,
 			);
 			name = "Custom Views";
+			sourceTree = "<group>";
+		};
+		F81645671CD2BD9F00A3D5C5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F81645641CD2BD9000A3D5C5 /* Player.h */,
+				F81645651CD2BD9000A3D5C5 /* Player.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F81E4BB31CE199A8001D3C3C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F81E4BB01CE1991A001D3C3C /* HomeScene.h */,
+				F81E4BB11CE1991A001D3C3C /* HomeScene.m */,
+				F81E4BAE1CE1990B001D3C3C /* HomeScene.sks */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		F81E4BB41CE199B0001D3C3C /* School */ = {
+			isa = PBXGroup;
+			children = (
+				F81E4BA91CE1983E001D3C3C /* SchoolScene.h */,
+				F81E4BAA1CE1983E001D3C3C /* SchoolScene.m */,
+				F81E4BAC1CE19892001D3C3C /* SchoolScene.sks */,
+			);
+			name = School;
+			sourceTree = "<group>";
+		};
+		F81E4BBA1CE305AB001D3C3C /* Beach */ = {
+			isa = PBXGroup;
+			children = (
+				F81E4BB51CE2C541001D3C3C /* BeachScene.h */,
+				F81E4BB61CE2C541001D3C3C /* BeachScene.m */,
+				F81E4BB81CE2C558001D3C3C /* BeachScene.sks */,
+			);
+			name = Beach;
+			sourceTree = "<group>";
+		};
+		F81E4BC01CE30960001D3C3C /* City */ = {
+			isa = PBXGroup;
+			children = (
+				F81E4BBD1CE30959001D3C3C /* CityScene.h */,
+				F81E4BBE1CE30959001D3C3C /* CityScene.m */,
+				F81E4BBB1CE3090D001D3C3C /* CityScene.sks */,
+			);
+			name = City;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,11 +366,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F80B92521CC990B300656EA2 /* art.scnassets in Resources */,
-				F80B92701CC991BF00656EA2 /* TheStillScene.sks in Resources */,
-				F80B925D1CC990B300656EA2 /* LaunchScreen.storyboard in Resources */,
-				F80B927A1CC9923400656EA2 /* TheScrollScene.sks in Resources */,
+				F8D803231CD34B90003AB7E1 /* LaunchScreen.storyboard in Resources */,
+				F81E4BAD1CE19892001D3C3C /* SchoolScene.sks in Resources */,
+				F81E4BBC1CE3090D001D3C3C /* CityScene.sks in Resources */,
+				F8D803251CD34C31003AB7E1 /* Launch.storyboard in Resources */,
+				F81E4BB91CE2C558001D3C3C /* BeachScene.sks in Resources */,
 				F80B925A1CC990B300656EA2 /* Assets.xcassets in Resources */,
 				F80B92581CC990B300656EA2 /* Main.storyboard in Resources */,
+				F81E4BAF1CE1990B001D3C3C /* HomeScene.sks in Resources */,
+				F8D803271CD38A3D003AB7E1 /* LogoTempLaunch.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,20 +388,23 @@
 				F80B927F1CC9929000656EA2 /* GameViewController.m in Sources */,
 				F80B928E1CC9934800656EA2 /* ScreenSegment.m in Sources */,
 				F80B92851CC992B100656EA2 /* GameUtility.m in Sources */,
+				F81E4BAB1CE1983E001D3C3C /* SchoolScene.m in Sources */,
 				F80B928D1CC9934800656EA2 /* EnvironmentManager.m in Sources */,
 				F80B92961CC9944600656EA2 /* SwipeMenu.m in Sources */,
 				F80B92981CC9944600656EA2 /* SwipeMenuHeaderView.m in Sources */,
+				F81E4BB71CE2C541001D3C3C /* BeachScene.m in Sources */,
 				F80B92971CC9944600656EA2 /* SwipeMenuCell.m in Sources */,
+				F81E4BBF1CE30959001D3C3C /* CityScene.m in Sources */,
 				F80B92681CC9919200656EA2 /* BaseScene.m in Sources */,
 				F80B926E1CC991BF00656EA2 /* StillScene.m in Sources */,
 				F8F8A7EE1CD0B04E0098533D /* MainMenuViewController.m in Sources */,
 				F80B92501CC990B300656EA2 /* AppDelegate.m in Sources */,
 				F80B92861CC992B100656EA2 /* UIColor+GameColors.m in Sources */,
-				F80B926F1CC991BF00656EA2 /* TheStillScene.m in Sources */,
 				F80B924D1CC990B300656EA2 /* main.m in Sources */,
+				F81E4BB21CE1991A001D3C3C /* HomeScene.m in Sources */,
 				F8F8A7EB1CD0AA1D0098533D /* LaunchView.m in Sources */,
 				F80B92781CC9923400656EA2 /* ScrollScene.m in Sources */,
-				F80B92791CC9923400656EA2 /* TheScrollScene.m in Sources */,
+				F81645661CD2BD9000A3D5C5 /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,14 +417,6 @@
 				F80B92571CC990B300656EA2 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F80B925B1CC990B300656EA2 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F80B925C1CC990B300656EA2 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

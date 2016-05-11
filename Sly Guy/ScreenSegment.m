@@ -13,8 +13,8 @@
     
 }
 
-@property (nonatomic, strong) EnvironmentManager    *environmentManager;
-@property (nonatomic, strong) NSTimer               *shouldUpdateTextureTimer;
+//@property (nonatomic, strong) EnvironmentManager    *environmentManager;
+//@property (nonatomic, strong) NSTimer               *shouldUpdateTextureTimer;
 @property (nonatomic, assign) BOOL                  shouldUpdateTexture;
 
 @end
@@ -38,32 +38,38 @@
 
 -(void)dealloc {
     
-    [self.shouldUpdateTextureTimer invalidate];
-    self.shouldUpdateTextureTimer = nil;
+//    [self.shouldUpdateTextureTimer invalidate];
+//    self.shouldUpdateTextureTimer = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kResetScreenSegmentIndex object:nil];
 }
 
 -(void)updateTextureWithOffset:(NSInteger)offset {
     
-    if (self.shouldUpdateTexture) {
-        self.shouldUpdateTexture = NO;
+//    if (self.shouldUpdateTexture) {
+//        self.shouldUpdateTexture = NO;
+//        self.index = offset;
+//        [self setTexture:[self.environmentManager placeTextureInSegmentForType:self.segmentType atIndex:self.index]];
+//        [self fireShouldUpdateTextureTimer];
+//    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
         self.index = offset;
-        [self setTexture:[SKTexture textureWithImageNamed:[self.environmentManager placeTextureInSegmentForType:self.segmentType atIndex:self.index]]];
-        [self fireShouldUpdateTextureTimer];
-    }
+        [self setTexture:[self.environmentManager placeTextureInSegmentForType:self.segmentType atIndex:self.index]];
+    });
+    
 }
 
--(void)fireShouldUpdateTextureTimer {
-    
-    self.shouldUpdateTextureTimer = [NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(invalidateShouldUpdateTextureTimer) userInfo:nil repeats:NO];
-}
-                                     
--(void)invalidateShouldUpdateTextureTimer {
-    self.shouldUpdateTexture = YES;
-    [self.shouldUpdateTextureTimer invalidate];
-    self.shouldUpdateTextureTimer = nil;
-}
+//-(void)fireShouldUpdateTextureTimer {
+//    
+//    self.shouldUpdateTextureTimer = [NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(invalidateShouldUpdateTextureTimer) userInfo:nil repeats:NO];
+//}
+
+//-(void)invalidateShouldUpdateTextureTimer {
+//    self.shouldUpdateTexture = YES;
+//    [self.shouldUpdateTextureTimer invalidate];
+//    self.shouldUpdateTextureTimer = nil;
+//}
 
 -(void)registerForNotifications {
     

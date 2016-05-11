@@ -12,6 +12,21 @@
 
 @interface GameViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIView *callToActionContainer;
+
+@property (strong, nonatomic) IBOutlet UIVisualEffectView *callToActionVisualEffectView;
+
+@property (strong, nonatomic) IBOutlet UIScrollView *callToActionScrollView;
+
+@property (strong, nonatomic) IBOutlet UIView *callToActionSeperator;
+
+@property (strong, nonatomic) IBOutlet UIButton *callToActionButton1;
+
+@property (strong, nonatomic) IBOutlet UIButton *callToActionButton2;
+
+@property (strong, nonatomic) IBOutlet UIButton *callToActionButton3;
+
+
 @property (nonatomic, assign) Level level;
 
 @end

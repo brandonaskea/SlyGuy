@@ -51,7 +51,7 @@
     tableView.userInteractionEnabled = YES;
     self.userInteractionEnabled = YES;
     tableView.backgroundColor = [UIColor clearColor];
-    tableView.separatorColor = [UIColor trumpGold];
+    tableView.separatorColor = [UIColor clearColor];
     tableView.separatorInset = UIEdgeInsetsMake(0, 30, 30, 30);
     [tableView registerClass:[SwipeMenuCell class] forCellReuseIdentifier:@"Cell"];
     headerView = [[SwipeMenuHeaderView alloc] initWithFrame:CGRectMake(0, 0, kSwipeMenuWidth, kSwipeMenuHeaderHeight + kSwipeMenuHeaderBottomPadding)];
@@ -88,7 +88,26 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
+    switch (indexPath.row) {
+        case 0:
+            
+            break;
+            
+        case 1:
+            
+            
+            
+            break;
+            
+        case 2:
+            
+            [self.delegate quitGame];
+            
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void) leftSwipe {

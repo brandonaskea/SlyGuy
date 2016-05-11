@@ -8,7 +8,10 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () {
+    
+    Player *sharedPlayer;
+}
 
 @end
 
@@ -16,7 +19,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    // Init Player Singleton
+    sharedPlayer = [Player sharedPlayer];
+    
     return YES;
 }
 
@@ -39,7 +45,13 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    //[Player savePlayer:sharedPlayer];
+}
+
+-(Player *)getSharedPlayer {
+    
+    return sharedPlayer;
 }
 
 @end

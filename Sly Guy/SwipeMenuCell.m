@@ -28,6 +28,7 @@
     menuLabel.text = text;
     menuLabel.textAlignment = NSTextAlignmentCenter;
     menuLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
+    menuLabel.textColor = [UIColor whiteColor];
     [self.contentView addSubview:menuLabel];
 }
 

@@ -61,7 +61,7 @@
     return width * screenLengths;
 }
 
-+(CGRect)getLaunchImageRectForScreenSize {
++(CGRect)getLaunchImageRectForScreenSize:(CGRect)screenSize {
     
     CGRect launchImageRect;
     
@@ -79,7 +79,8 @@
         
         else {
             
-            launchImageRect = CGRectMake(0, 0, 250, 250);
+//            launchImageRect = CGRectMake(0, 0, 170, 560);
+            launchImageRect = CGRectMake(CGRectGetMidX(screenSize), CGRectGetMidY(screenSize), 170 - 10, 560);
         }
         
     }
@@ -91,6 +92,32 @@
     
     return launchImageRect;
 
+}
+
++(CGFloat)getLaunchImageYOffset {
+        
+    if (IS_IPHONE) {
+        
+        if (IS_IPHONE_4_OR_LESS || IS_IPHONE_5) {
+            
+            return -20;
+        }
+        
+        else if (IS_IPHONE_6) {
+            
+            return -20;
+        }
+        
+        else {
+            
+            return -20;
+        }
+    }
+    
+    else {
+        
+        return -20;
+    }
 }
 
 @end

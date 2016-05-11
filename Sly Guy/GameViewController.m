@@ -7,10 +7,13 @@
 //
 
 #import "GameViewController.h"
-#import "TheStillScene.h"
-#import "TheScrollScene.h"
+#import "HomeScene.h"
+#import "CityScene.h"
+#import "SchoolScene.h"
+#import "BeachScene.h"
 #import "SwipeMenu.h"
 #import "UIColor+GameColors.h"
+#import "AppDelegate.h"
 
 @interface GameViewController () <UIGestureRecognizerDelegate, SwipeMenuDelegate> {
     
@@ -31,7 +34,7 @@
     
     self.view.userInteractionEnabled = YES;
     
-    [self setUpScene];
+    [self setUpUI];
     
     [self presentLevel:self.level];
 }
@@ -62,12 +65,10 @@
 
 #pragma mark - SETUP METHODS
 
--(void)setUpScene {
+-(void)setUpUI {
  
     // SETUP SKVIEW
     skView = [[SKView alloc] initWithFrame:self.view.frame];
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
     skView.ignoresSiblingOrder = YES;
     
     // INVISIBLE VIEW FOR SLIDING MENU
@@ -82,32 +83,65 @@
     
     [skView addSubview:swipeView];
     [self.view addSubview:skView];
+    
+    // SETUP CALL TO ACTION VIEW
+    self.callToActionContainer.backgroundColor = [UIColor clearColor];
+    self.callToActionContainer.layer.cornerRadius = kCallToActionContainerCornerRadius;
+    self.callToActionContainer.clipsToBounds = YES;
+    
+    self.callToActionButton1.backgroundColor = [UIColor whiteColor];
+    self.callToActionButton1.layer.cornerRadius = kCallToActionButtonCornerRadius;
+    [self.callToActionButton1 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    
+    self.callToActionButton2.backgroundColor = [UIColor whiteColor];
+    self.callToActionButton2.layer.cornerRadius = kCallToActionButtonCornerRadius;
+    [self.callToActionButton2 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    
+    self.callToActionButton3.backgroundColor = [UIColor whiteColor];
+    self.callToActionButton3.layer.cornerRadius = kCallToActionButtonCornerRadius;
+    [self.callToActionButton3 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    
 }
 
 -(void)presentLevel:(Level)level {
         
-    if (level == 0) {
-        level = CITY;
+    switch (level) {
+        case ENCOUNTER:
+            
+            
+            
+            break;
+            
+        case GARAGE:
+            
+            break;
+            
+        case CITY:
+            
+            scene = (CityScene *)[CityScene unarchiveFromFile:@"CityScene"];
+            
+            break;
+            
+        case SCHOOL:
+            
+            scene = (SchoolScene *)[SchoolScene unarchiveFromFile:@"SchoolScene"];
+            
+            break;
+            
+        case BEACH:
+            
+            scene = (BeachScene *)[BeachScene unarchiveFromFile:@"BeachScene"];
+            
+            break;
+            
+        default:
+            break;
     }
-    
-    // LOAD THE EPISODE (level)
-    if (level % 2 == 0) {
-        // Even levels are Scroll Scenes
-        scene = [TheScrollScene unarchiveFromFile:@"TheScrollScene"];
-    }
-    else {
-        // Odd levels are Still Scenes
-        scene = (TheStillScene *)[TheStillScene unarchiveFromFile:@"TheStillScene"];
-    }
-    
-    // SET UP LEVEL (overload)
-    [scene setUpLevel:level];
-    
-    // SCALE TO FILL THE SCREEN SIZE
-    scene.scaleMode = SKSceneScaleModeFill;
+
+    [scene configureLevel:level];
     
     // Present the scene.
-    [skView presentScene:scene];
+    [skView presentScene:scene transition:[SKTransition revealWithDirection:SKTransitionDirectionDown duration:2.0]];
 }
 
 #pragma mark - SWIPE MENU
@@ -153,6 +187,31 @@
         [swipeMenu removeFromSuperview];
         swipeMenu = nil;
     }];
+}
+
+-(void)quitGame {
+    
+    // Breakdown Game
+    [scene breakdownGame];
+    [skView removeFromSuperview];
+    skView = nil;
+    [swipeMenu removeFromSuperview];
+    swipeMenu = nil;
+    [swipeView removeFromSuperview];
+    swipeView = nil;
+    [swipeRight removeTarget:self action:nil];
+    swipeRight = nil;
+    
+    // Persist player
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    Player *sharedPlayer = [appDelegate getSharedPlayer];
+    [Player savePlayer:sharedPlayer];
+    
+    // Segue to Main Menu
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSegueWithIdentifier:kMenuSegue sender:self];
+    });
+    
 }
 
 @end

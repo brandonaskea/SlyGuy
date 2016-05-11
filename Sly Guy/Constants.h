@@ -32,11 +32,21 @@ typedef void (^Completion)(BOOL completed);
 static CGFloat kMenuContainerCornerRadius = 8;
 
 /*
+ *  PLAYER SINGLETON CONSTANTS
+ */
+
+static NSString * const kPlayerDefaults = @"PlayerDefaults";    // NSDictionary that holds below keys
+static NSString * const kPlayerDefaultsHealth = @"PlayerDefaultsHealth";  // NSNumber with float (1.0 = 100%)
+static NSString * const kPlayerDefaultsMoney = @"PlayerDefaultsMoney";   // NSNumber with NSInteger (1 = 1 dollar)
+static NSString * const kPlayerDefaultsCar = @"PlayerDefaultsCar";       // NSString The Car (if any) the Player owns
+static NSString * const kPlayerDefaultsCurrentLevel = @"PlayerDefaultsCurrentLevel"; // The level that the Player is either currently playing, or the one that needs to be loaded
+
+/*
  *  LAUNCH IMAGE CONSTANTS
  */
 
 static CGFloat kLaunchImageBottomConstraintIncreaseIPhone5AndBelow = 218;
-
+static CGFloat kLaunchImageTopPadding = 20;
 
 /*
  *  GAME CONSTANTS
@@ -78,17 +88,19 @@ static CGFloat kScoreLabelHeight = 20;
 static CGFloat kWallWidth = 1;
 
 static CGFloat kHealthLabelTopPadding = 50;
-static CGFloat kHealthLabelPadding = 50;
+static CGFloat kHealthLabelPadding = 10;
 static CGFloat kHealthLabelHeight = 20;
 static CGFloat kHealthLabelFontSize = 36;
 
-static CGFloat kMoneyLabelPadding = 50;
+static CGFloat kMoneyLabelPadding = 10;
 static CGFloat kMoneyLabelHeight = 20;
 
-static CGFloat kPlayerFreezeThreshold = 325;
+//static CGFloat kPlayerFreezeThreshold = 335;
+static CGFloat kPlayerFreezeThreshold = 400;
 
-//static CGFloat kScrollingBackgroundWalkingSpeed = 8.33;
-static CGFloat kScrollingBackgroundWalkingSpeed = 16.17;
+
+static CGFloat kScrollingBackgroundWalkingSpeed = 8.33;
+//static CGFloat kScrollingBackgroundWalkingSpeed = 16.17;
 static CGFloat kScrollingBackgroundDrivingSpeed = 20;
 static CGFloat kScrollingBackgroundFlyingSpeed = 30;
 
@@ -98,7 +110,11 @@ static CGFloat kEnvironmentItemsMinimumSpacing = 30;
 
 static NSInteger kTotalBackgroundSegmentsCity = 10;
 
-static NSString  * const kStrangerEncounterBackgroundImage = @"StrangerEncounterBackgroundImage";
+static NSInteger kTotalBackgroundSegmentsBeach = 10;
+
+static NSInteger kTotalForegroundSegmentsSchool = 40;
+
+static NSString  * const kStrangerEncounterBackgroundImage = @"HomeBackgroundImage";
 
 static NSString  * const kGarageBackgroundImage = @"GarageBackgroundImage";
 
@@ -114,10 +130,35 @@ static NSString  * const kCityForegroundImage2 = @"CityForegroundImage2-OneTree"
 static NSString  * const kCityForegroundImage3 = @"CityForegroundImage3-TwoTrees";
 static NSString  * const kCityForegroundImage4 = @"CityForegroundImage4-PoleSign";
 
-static NSString  * const kSchoolBackgroundImage1 = @"SchoolBackgroundImage1";
-static NSString  * const kSchoolBackgroundImage2 = @"SchoolBackgroundImage2";
-static NSString  * const kSchoolBackgroundImage3 = @"SchoolBackgroundImage3";
-static NSString  * const kSchoolBackgroundImage4 = @"SchoolBackgroundImage4";
+static u_int32_t kNumberOfPossibleBackgroundImagesBeach = 4;
+static NSString  * const kBeachBackgroundImage1 = @"BeachBackgroundImage1";
+static NSString  * const kBeachBackgroundImage2 = @"BeachBackgroundImage2";
+static NSString  * const kBeachBackgroundImage3 = @"BeachBackgroundImage3";
+static NSString  * const kBeachBackgroundImage4 = @"BeachBackgroundImage4";
+
+static u_int32_t kNumberOfPossibleMiddlegroundImagesBeach = 4;
+static NSString  * const kBeachMiddlegroundImage1 = @"BeachMiddlegroundImage1";
+static NSString  * const kBeachMiddlegroundImage2 = @"BeachMiddlegroundImage2";
+static NSString  * const kBeachMiddlegroundImage3 = @"BeachMiddlegroundImage3";
+static NSString  * const kBeachMiddlegroundImage4 = @"BeachMiddlegroundImage4";
+
+static u_int32_t kNumberOfPossibleForegroundImagesBeach = 4;
+static NSString  * const kBeachForegroundImage1 = @"BeachForegroundImage1";
+static NSString  * const kBeachForegroundImage2 = @"BeachForegroundImage2";
+static NSString  * const kBeachForegroundImage3 = @"BeachForegroundImage3";
+static NSString  * const kBeachForegroundImage4 = @"BeachForegroundImage4";
+
+static u_int32_t kNumberOfPossibleForegroundImagesSchool = 10;
+static NSString  * const kSchoolForegroundImage1 = @"SchoolForegroundImage1";
+static NSString  * const kSchoolForegroundImage2 = @"SchoolForegroundImage2";
+static NSString  * const kSchoolForegroundImage3 = @"SchoolForegroundImage3";
+static NSString  * const kSchoolForegroundImage4 = @"SchoolForegroundImage4";
+static NSString  * const kSchoolForegroundImage5 = @"SchoolForegroundImage5";
+static NSString  * const kSchoolForegroundImage6 = @"SchoolForegroundImage6";
+static NSString  * const kSchoolForegroundImage7 = @"SchoolForegroundImage7";
+static NSString  * const kSchoolForegroundImage8 = @"SchoolForegroundImage8";
+static NSString  * const kSchoolForegroundImage9 = @"SchoolForegroundImage9";
+static NSString  * const kSchoolForegroundImage10 = @"SchoolForegroundImage10";
 
 static NSString  * const kGymBackgroundImage1 = @"GymBackgroundImage1";
 static NSString  * const kGymBackgroundImage2 = @"GymBackgroundImage2";
@@ -150,6 +191,13 @@ static CGFloat kSwipeMenuHeaderBottomPadding = 20;
 static CGFloat kSwipeMenuHeaderTrumpQuotePadding = 12;
 
 /*
+ *  CALL TO ACTION CONSTANTS
+ */
+
+static CGFloat kCallToActionContainerCornerRadius = 8;
+static CGFloat kCallToActionButtonCornerRadius = 6;
+
+/*
  *  FONT CONSTANTS
  */
 
@@ -175,17 +223,23 @@ static NSString * kShortMovementAnimation = @"playerMovementAnimation";
 static NSString * kResetScreenSegmentIndex = @"ResetScreenSegmentIndex";
 
 /*
+ *  Segues
+ */
+static NSString * const kGameSegue = @"GameSegue";
+static NSString * const kMenuSegue = @"MenuSegue";
+
+/*
  *  ENUMS
  */
 
 typedef NS_ENUM(NSUInteger, Level) {
-                            // Odd value = Still Scenes
-                            // Even value = Scrolling Scenes
+                            // Odd value = Indoor Scenes (foreground only)
+                            // Even value = Outdoor Scenes (foreground, middleground, and backgrounds)
     ENCOUNTER               = 1,
     GARAGE                  = 3,
     CITY                    = 2,
     JAIL                    = 5,
-    GYM                     = 4,
+    BEACH                   = 4,
     SCHOOL                  = 6,
     DESERT                  = 8,
     DEALERSHIP              = 7,

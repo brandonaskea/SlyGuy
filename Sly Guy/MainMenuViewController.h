@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
-
 @property (strong, nonatomic) IBOutlet UIView *menuContainerView;
 
 @property (strong, nonatomic) IBOutlet UIButton *startGameButton;

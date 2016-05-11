@@ -41,54 +41,59 @@
     self.backgroundColor = [UIColor whiteColor];
     
     // 2) Add the launch image
-    UIImageView *launchImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-    launchImage.center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    launchImage.image = [UIImage imageNamed:@"SuperPooperAppIcon300"];
-    [self addSubview:launchImage];
+//    UIImageView *launchImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 200)];
+//    launchImage.center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+//    launchImage.image = [UIImage imageNamed:@"LogoTempLaunch"];
+//    [launchImage setContentMode:UIViewContentModeScaleAspectFill];
+//    [self addSubview:launchImage];
     
     // 3) Animate the image to 'bounce'.
     
-    CGRect bounceDownFrame = CGRectMake(0, 0, 180, 180);
-    CGRect bounceUpFrame = [GameUtility getLaunchImageRectForScreenSize];
-    
-    // Bounce Down
-    [UIView animateWithDuration:0.25 delay:0.01 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        launchImage.frame = bounceDownFrame;
-        launchImage.center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        
-    } completion:^(BOOL finished) {
-        
-        if (finished) {
-            
-            // Bounce Up
-            [UIView animateWithDuration:0.25 delay:0.09 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                
-                launchImage.frame = bounceUpFrame;
-                launchImage.center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-                
-            } completion:^(BOOL finished) {
-                
-                if (finished) {
-                    
-                    // 4) Fade Out
-                    [UIView animateWithDuration:0.25 delay:0.01 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                        
-                        self.alpha = 0;
-                        
-                    } completion:^(BOOL finished) {
-                        
-                        [self removeFromSuperview];
-                        [self.delegate didDismissLaunchView];
-                    }];
-                    
-                }
-                
-            }];
-            
-        }
-        
-    }];
+//    CGRect bounceDownFrame = CGRectMake(0, 0, launchImage.frame.size.width * 0.5, launchImage.frame.size.height * 0.5);
+//    CGRect bounceUpFrame = [GameUtility getLaunchImageRectForScreenSize:[UIScreen mainScreen].bounds];
+//    
+//    // Bounce Down
+//    [UIView animateWithDuration:0.25 delay:1.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        
+//        launchImage.frame = bounceDownFrame;
+//        launchImage.center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+//        
+//    } completion:^(BOOL finished) {
+//        
+//        if (finished) {
+//            
+//            // Bounce Up
+//            [UIView animateWithDuration:0.80 delay:0.05 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//                
+//                launchImage.frame = bounceUpFrame;
+//                launchImage.center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+[GameUtility getLaunchImageYOffset]);
+//                launchImage.transform = CGAffineTransformMakeRotation(M_PI_2);
+//                
+//            } completion:^(BOOL finished) {
+//                
+//                if (finished) {
+//                    // fade out
+//                    [self.delegate willDismissLaunchView];
+//                    [UIView animateWithDuration:0.20 animations:^{
+//                        
+//                        self.alpha = 0;
+//                        
+//                    } completion:^(BOOL finished) {
+//                        
+//                        if (finished) {
+//                            
+//                            [self removeFromSuperview];
+//                            [self.delegate didDismissLaunchView];
+//                        }
+//                    }];
+//                    
+//                }
+//                
+//            }];
+//            
+//        }
+//        
+//    }];
 }
 
 @end

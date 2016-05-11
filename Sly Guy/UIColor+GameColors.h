@@ -14,4 +14,7 @@
 +(UIColor *)trumpGold;
 +(UIColor *)skyColor;
 +(UIColor *)cityFloorColor;
++(UIColor *)slyHighFloorColor;
++(UIColor *)beachSandColor;
++(UIColor *)beachSandColorAlternative;
 @end

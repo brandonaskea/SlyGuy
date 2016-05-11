@@ -10,6 +10,7 @@
 
 @protocol SwipeMenuDelegate <NSObject>
 
+-(void)quitGame;
 -(void)dismissMenu;
 
 @end

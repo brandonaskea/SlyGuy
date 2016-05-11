@@ -6,15 +6,47 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sly Guy/BeachScene.m"
+            timestampString = "484640624.216614"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "-setUpLevel"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sly Guy/BaseScene.m"
+            timestampString = "484641959.803669"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "-setUpEnvironment"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sly Guy/EnvironmentManager.m"
-            timestampString = "483524498.469613"
+            timestampString = "484645345.103002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "719"
-            endingLineNumber = "719"
+            startingLineNumber = "846"
+            endingLineNumber = "846"
             landmarkName = "-placeTextureInSegmentForType:atIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sly Guy/EnvironmentManager.m"
-            timestampString = "483524498.469613"
+            timestampString = "484645345.103002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
-            landmarkName = "-monitorForegroundForUpdates"
+            startingLineNumber = "838"
+            endingLineNumber = "838"
+            landmarkName = "-placeTextureInSegmentForType:atIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,29 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Sly Guy/EnvironmentManager.m"
-            timestampString = "483524498.469613"
+            filePath = "Sly Guy/ScreenSegment.m"
+            timestampString = "484642611.141088"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "350"
-            endingLineNumber = "350"
-            landmarkName = "-monitorBackgroundForUpdates"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Sly Guy/EnvironmentManager.m"
-            timestampString = "483524498.469613"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "-monitorBackgroundForUpdates"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "-updateTextureWithOffset:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
