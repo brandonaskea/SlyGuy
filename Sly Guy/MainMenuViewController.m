@@ -258,7 +258,7 @@
     if ([segue.identifier isEqualToString:kGameSegue]) {
         
         GameViewController *gameVC = (GameViewController *)segue.destinationViewController;
-        gameVC.level = SCHOOL;
+        gameVC.level = BEACH;
     }
 }
 @end

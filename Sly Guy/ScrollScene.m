@@ -54,7 +54,7 @@
     
     if (direction == LEFT) {
     
-        if (self.player.position.x <= kPlayerFreezeThreshold && (self.environmentManager.currentScreenOffset + 1) != self.environmentManager.totalBackgroundScreenSegments) {
+        if (self.player.position.x <= kPlayerFreezeThreshold && self.environmentManager.currentScreenOffset + 1 != self.environmentManager.totalBackgroundScreenSegments) {
             return YES;
         }
         else {

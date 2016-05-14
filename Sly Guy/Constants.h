@@ -118,57 +118,14 @@ static NSString  * const kStrangerEncounterBackgroundImage = @"HomeBackgroundIma
 
 static NSString  * const kGarageBackgroundImage = @"GarageBackgroundImage";
 
-static u_int32_t kNumberOfPossibleBackgroundImagesCity = 4;
-static NSString  * const kCityBackgroundImage1 = @"CityBackgroundImage1";
-static NSString  * const kCityBackgroundImage2 = @"CityBackgroundImage2";
-static NSString  * const kCityBackgroundImage3 = @"CityBackgroundImage3";
-static NSString  * const kCityBackgroundImage4 = @"CityBackgroundImage4";
+#define kCityBackgroundImages @[@"CityBackgroundImage1", @"CityBackgroundImage2", @"CityBackgroundImage3", @"CityBackgroundImage4"]
+#define kCityForegroundImages @[@"CityForegroundImage1-PoleTree", @"CityForegroundImage2-OneTree", @"CityForegroundImage3-TwoTrees", @"CityForegroundImage4-PoleSign"]
 
-static u_int32_t kNumberOfPossibleForegroundImagesCity = 4;
-static NSString  * const kCityForegroundImage1 = @"CityForegroundImage1-PoleTree";
-static NSString  * const kCityForegroundImage2 = @"CityForegroundImage2-OneTree";
-static NSString  * const kCityForegroundImage3 = @"CityForegroundImage3-TwoTrees";
-static NSString  * const kCityForegroundImage4 = @"CityForegroundImage4-PoleSign";
+#define kBeachBackgroundImages @[@"BeachBackgroundImage1", @"BeachBackgroundImage2", @"BeachBackgroundImage3", @"BeachBackgroundImage4"]
+#define kBeachMiddlegroundImages @[@"BeachMiddlegroundImage1", @"BeachMiddlegroundImage2", @"BeachMiddlegroundImage3", @"BeachMiddlegroundImage4"]
+#define kBeachForegroundImages @[@"BeachForegroundImage1", @"BeachForegroundImage2", @"BeachForegroundImage3", @"BeachForegroundImage4"]
 
-static u_int32_t kNumberOfPossibleBackgroundImagesBeach = 4;
-static NSString  * const kBeachBackgroundImage1 = @"BeachBackgroundImage1";
-static NSString  * const kBeachBackgroundImage2 = @"BeachBackgroundImage2";
-static NSString  * const kBeachBackgroundImage3 = @"BeachBackgroundImage3";
-static NSString  * const kBeachBackgroundImage4 = @"BeachBackgroundImage4";
-
-static u_int32_t kNumberOfPossibleMiddlegroundImagesBeach = 4;
-static NSString  * const kBeachMiddlegroundImage1 = @"BeachMiddlegroundImage1";
-static NSString  * const kBeachMiddlegroundImage2 = @"BeachMiddlegroundImage2";
-static NSString  * const kBeachMiddlegroundImage3 = @"BeachMiddlegroundImage3";
-static NSString  * const kBeachMiddlegroundImage4 = @"BeachMiddlegroundImage4";
-
-static u_int32_t kNumberOfPossibleForegroundImagesBeach = 4;
-static NSString  * const kBeachForegroundImage1 = @"BeachForegroundImage1";
-static NSString  * const kBeachForegroundImage2 = @"BeachForegroundImage2";
-static NSString  * const kBeachForegroundImage3 = @"BeachForegroundImage3";
-static NSString  * const kBeachForegroundImage4 = @"BeachForegroundImage4";
-
-static u_int32_t kNumberOfPossibleForegroundImagesSchool = 10;
-static NSString  * const kSchoolForegroundImage1 = @"SchoolForegroundImage1";
-static NSString  * const kSchoolForegroundImage2 = @"SchoolForegroundImage2";
-static NSString  * const kSchoolForegroundImage3 = @"SchoolForegroundImage3";
-static NSString  * const kSchoolForegroundImage4 = @"SchoolForegroundImage4";
-static NSString  * const kSchoolForegroundImage5 = @"SchoolForegroundImage5";
-static NSString  * const kSchoolForegroundImage6 = @"SchoolForegroundImage6";
-static NSString  * const kSchoolForegroundImage7 = @"SchoolForegroundImage7";
-static NSString  * const kSchoolForegroundImage8 = @"SchoolForegroundImage8";
-static NSString  * const kSchoolForegroundImage9 = @"SchoolForegroundImage9";
-static NSString  * const kSchoolForegroundImage10 = @"SchoolForegroundImage10";
-
-static NSString  * const kGymBackgroundImage1 = @"GymBackgroundImage1";
-static NSString  * const kGymBackgroundImage2 = @"GymBackgroundImage2";
-static NSString  * const kGymBackgroundImage3 = @"GymBackgroundImage3";
-static NSString  * const kGymBackgroundImage4 = @"GymBackgroundImage4";
-
-static NSString  * const kJailBackgroundImage1 = @"JailBackgroundImage1";
-static NSString  * const kJailBackgroundImage2 = @"JailBackgroundImage2";
-static NSString  * const kJailBackgroundImage3 = @"JailBackgroundImage3";
-static NSString  * const kJailBackgroundImage4 = @"JailBackgroundImage4";
+#define kSchoolForegroundImages @[@"SchoolForegroundImage1", @"SchoolForegroundImage2", @"SchoolForegroundImage3", @"SchoolForegroundImage4", @"SchoolForegroundImage5", @"SchoolForegroundImage6", @"SchoolForegroundImage7", @"SchoolForegroundImage8", @"SchoolForegroundImage9", @"SchoolForegroundImage10"]
 
 
 /*

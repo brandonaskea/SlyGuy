@@ -215,7 +215,7 @@
     
     // 1) SET UP EnvironmentManager.
     if (!self.environmentManager) {
-        self.environmentManager = [[EnvironmentManager alloc] initWithLevel:self.level andScene:self];
+        self.environmentManager = [[EnvironmentManager alloc] initWithLevel:self.level];
     }
     
     
@@ -950,25 +950,19 @@
         
         // BACKGROUND
         [self.environmentManager monitorBackgroundForUpdates];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.background1 scrollInDirection:self.scrollingDirection];
-            [self.background2 scrollInDirection:self.scrollingDirection];
-        });
+        [self.background1 scrollInDirection:self.scrollingDirection];
+        [self.background2 scrollInDirection:self.scrollingDirection];
         
         // MIDDLEGROUND
         [self.environmentManager monitorMiddlegroundForUpdates];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.middleground1 scrollInDirection:self.scrollingDirection];
-            [self.middleground2 scrollInDirection:self.scrollingDirection];
-        });
+        [self.middleground1 scrollInDirection:self.scrollingDirection];
+        [self.middleground2 scrollInDirection:self.scrollingDirection];
     }
     
     // FOREGROUND
     [self.environmentManager monitorForegroundForUpdates];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.foreground1 scrollInDirection:self.scrollingDirection];
-        [self.foreground2 scrollInDirection:self.scrollingDirection];
-    });
+    [self.foreground1 scrollInDirection:self.scrollingDirection];
+    [self.foreground2 scrollInDirection:self.scrollingDirection];
     
 }
 

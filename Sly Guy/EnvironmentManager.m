@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSMutableArray    *backgroundTextures;
 @property (nonatomic, strong) NSMutableArray    *middlegroundTextures;
 @property (nonatomic, strong) NSMutableArray    *foregroundTextures;
-@property (nonatomic, weak)   BaseScene         *scene;
+@property (nonatomic, strong) NSCache           *cachedTextures;
 
 @property (nonatomic, weak)   ScreenSegment     *background1;
 @property (nonatomic, weak)   ScreenSegment     *background2;
@@ -31,15 +31,16 @@
 @property (nonatomic, strong) SKTexture         *nextBackgroundTextureToPlace;
 @property (nonatomic, strong) SKTexture         *nextMiddlegroundTextureToPlace;
 
+@property (nonatomic, weak)   id<EnvironmentManagerDelegate> delegate;
+
 @end
 
 @implementation EnvironmentManager
 
--(id)initWithLevel:(Level)level andScene:(BaseScene *)scene {
+-(id)initWithLevel:(Level)level {
     self = [super init];
     
     if (self) {
-        self.scene = scene;
         self.level = level;
         [self setUpEnvironmentSpeeds];
         [self setUpEnvironmentForLevel];
@@ -145,30 +146,16 @@
         case CITY: {
             
             // 3) Build the BACKGROUND segments.
-            self.totalBackgroundScreenSegments = kTotalBackgroundSegmentsCity;
+            self.totalBackgroundScreenSegments = 10;
             
             self.backgroundTextures = [NSMutableArray new];
             for (int i = 0; i < self.totalBackgroundScreenSegments; i++) {
                 
                 NSString *randomBackgroundImage;
                 
-                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleBackgroundImagesCity + 1);
+                u_int32_t randomIndex = arc4random_uniform(kCityForegroundImages.count - 1);
                 
-                if (randomNumber==1) {
-                    randomBackgroundImage = kCityBackgroundImage1;
-                }
-                else if (randomNumber==2){
-                    randomBackgroundImage = kCityBackgroundImage2;
-                }
-                else if (randomNumber==3){
-                    randomBackgroundImage = kCityBackgroundImage3;
-                }
-                else if (randomNumber==4){
-                    randomBackgroundImage = kCityBackgroundImage4;
-                }
-                else {
-                    randomBackgroundImage = kCityBackgroundImage1;
-                }
+                randomBackgroundImage = [kCityBackgroundImages objectAtIndex:randomIndex];
                 
                 // this will create a background segment with random characteristcs and add it to the backgroundSegments collection
                 [self.backgroundTextures addObject:randomBackgroundImage];
@@ -183,23 +170,9 @@
                 
                 NSString *randomMiddlegroundImage;
                 
-                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleForegroundImagesCity + 1);
+                u_int32_t randomNumber = arc4random_uniform(kCityForegroundImages.count - 1);
                 
-                if (randomNumber==1) {
-                    randomMiddlegroundImage = kCityForegroundImage1;
-                }
-                else if (randomNumber==2){
-                    randomMiddlegroundImage = kCityForegroundImage2;
-                }
-                else if (randomNumber==3){
-                    randomMiddlegroundImage = kCityForegroundImage3;
-                }
-                else if (randomNumber==4){
-                    randomMiddlegroundImage = kCityForegroundImage4;
-                }
-                else {
-                    randomMiddlegroundImage = kCityForegroundImage1;
-                }
+                randomMiddlegroundImage = [kCityForegroundImages objectAtIndex:randomNumber];
                 
                 // this will create a foreground segment with random characteristcs and add it to the foregroundSegments collection
                 [self.middlegroundTextures addObject:randomMiddlegroundImage];
@@ -214,23 +187,9 @@
                 
                 NSString *randomForegroundImage;
                 
-                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleForegroundImagesCity + 1);
+                u_int32_t randomIndex = arc4random_uniform(kCityForegroundImages.count - 1);
                 
-                if (randomNumber==1) {
-                    randomForegroundImage = kCityForegroundImage1;
-                }
-                else if (randomNumber==2){
-                    randomForegroundImage = kCityForegroundImage2;
-                }
-                else if (randomNumber==3){
-                    randomForegroundImage = kCityForegroundImage3;
-                }
-                else if (randomNumber==4){
-                    randomForegroundImage = kCityForegroundImage4;
-                }
-                else {
-                    randomForegroundImage = kCityForegroundImage1;
-                }
+                randomForegroundImage = kCityForegroundImages[randomIndex];
                 
                 // this will create a foreground segment with random characteristcs and add it to the foregroundSegments collection
                 [self.foregroundTextures addObject:randomForegroundImage];
@@ -248,23 +207,9 @@
                 
                 NSString *randomBackgroundImage;
                 
-                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleBackgroundImagesBeach + 1);
+                u_int32_t randomNumber = arc4random_uniform(kBeachBackgroundImages.count - 1);
                 
-                if (randomNumber==1) {
-                    randomBackgroundImage = kBeachBackgroundImage1;
-                }
-                else if (randomNumber==2){
-                    randomBackgroundImage = kBeachBackgroundImage2;
-                }
-                else if (randomNumber==3){
-                    randomBackgroundImage = kBeachBackgroundImage3;
-                }
-                else if (randomNumber==4){
-                    randomBackgroundImage = kBeachBackgroundImage4;
-                }
-                else {
-                    randomBackgroundImage = kBeachBackgroundImage1;
-                }
+                randomBackgroundImage = kBeachBackgroundImages[randomNumber];
                 
                 [self.backgroundTextures addObject:randomBackgroundImage];
 
@@ -277,23 +222,9 @@
                 
                 NSString *randomMiddlegroundImage;
                 
-                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleMiddlegroundImagesBeach + 1);
+                u_int32_t randomIndex = arc4random_uniform(kBeachMiddlegroundImages.count - 1);
                 
-                if (randomNumber==1) {
-                    randomMiddlegroundImage = kBeachMiddlegroundImage1;
-                }
-                else if (randomNumber==2){
-                    randomMiddlegroundImage = kBeachMiddlegroundImage2;
-                }
-                else if (randomNumber==3){
-                    randomMiddlegroundImage = kBeachMiddlegroundImage3;
-                }
-                else if (randomNumber==4){
-                    randomMiddlegroundImage = kBeachMiddlegroundImage4;
-                }
-                else {
-                    randomMiddlegroundImage = kBeachMiddlegroundImage1;
-                }
+                randomMiddlegroundImage = kBeachMiddlegroundImages[randomIndex];
                 
                 [self.middlegroundTextures addObject:randomMiddlegroundImage];
 
@@ -307,23 +238,9 @@
                 
                 NSString *randomForegroundImage;
                 
-                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleForegroundImagesBeach + 1);
+                u_int32_t randomNumber = arc4random_uniform(kBeachForegroundImages.count - 1);
                 
-                if (randomNumber==1) {
-                    randomForegroundImage = kBeachForegroundImage1;
-                }
-                else if (randomNumber==2){
-                    randomForegroundImage = kBeachForegroundImage2;
-                }
-                else if (randomNumber==3){
-                    randomForegroundImage = kBeachForegroundImage3;
-                }
-                else if (randomNumber==4){
-                    randomForegroundImage = kBeachForegroundImage4;
-                }
-                else {
-                    randomForegroundImage = kBeachForegroundImage2;
-                }
+                randomForegroundImage = kBeachForegroundImages[randomNumber];
                 
                 [self.foregroundTextures addObject:randomForegroundImage];
                 
@@ -342,41 +259,9 @@
                 
                 NSString *randomForegroundImage;
                 
-                u_int32_t randomNumber = arc4random_uniform(kNumberOfPossibleForegroundImagesSchool + 1);
+                u_int32_t randomNumber = arc4random_uniform(kSchoolForegroundImages.count - 1);
                 
-                if (randomNumber==1) {
-                    randomForegroundImage = kSchoolForegroundImage1;
-                }
-                else if (randomNumber==2){
-                    randomForegroundImage = kSchoolForegroundImage2;
-                }
-                else if (randomNumber==3){
-                    randomForegroundImage = kSchoolForegroundImage3;
-                }
-                else if (randomNumber==4){
-                    randomForegroundImage = kSchoolForegroundImage4;
-                }
-                else if (randomNumber==5){
-                    randomForegroundImage = kSchoolForegroundImage5;
-                }
-                else if (randomNumber==6){
-                    randomForegroundImage = kSchoolForegroundImage6;
-                }
-                else if (randomNumber==7){
-                    randomForegroundImage = kSchoolForegroundImage7;
-                }
-                else if (randomNumber==8){
-                    randomForegroundImage = kSchoolForegroundImage8;
-                }
-                else if (randomNumber==9){
-                    randomForegroundImage = kSchoolForegroundImage9;
-                }
-                else if (randomNumber==10){
-                    randomForegroundImage = kSchoolForegroundImage10;
-                }
-                else {
-                    randomForegroundImage = kSchoolForegroundImage8;
-                }
+                randomForegroundImage = kSchoolForegroundImages[randomNumber];
                 
                 [self.foregroundTextures addObject:randomForegroundImage];
                 
@@ -392,6 +277,72 @@
 //        NSString *segment = [self.middlegroundTextures objectAtIndex:i];
 //        NSLog(@"%@ %d",segment, i);
 //    }
+    
+    NSMutableArray *texturesToCache = [NSMutableArray new];
+    
+    // background
+    for (NSString* backgroundTextureName in self.backgroundTextures) {
+        
+        BOOL isNew = YES;
+        
+        for (NSString *cachedTexture in texturesToCache) {
+            
+            if ([backgroundTextureName isEqualToString:cachedTexture]) {
+                isNew = NO;
+            }
+        }
+        
+        if (isNew == YES) {
+            [texturesToCache addObject:backgroundTextureName];
+        }
+    }
+    
+    // middleground
+    for (NSString* middlegroundTextureName in self.middlegroundTextures) {
+        
+        BOOL isNew = YES;
+        
+        for (NSString *cachedTexture in texturesToCache) {
+            
+            if ([middlegroundTextureName isEqualToString:cachedTexture]) {
+                isNew = NO;
+            }
+        }
+        
+        if (isNew == YES) {
+            [texturesToCache addObject:middlegroundTextureName];
+        }
+    }
+    
+    // foreground
+    for (NSString* foregroundTextureName in self.foregroundTextures) {
+        
+        BOOL isNew = YES;
+        
+        for (NSString *cachedTexture in texturesToCache) {
+            
+            if ([foregroundTextureName isEqualToString:cachedTexture]) {
+                isNew = NO;
+            }
+        }
+        
+        if (isNew == YES) {
+            [texturesToCache addObject:foregroundTextureName];
+        }
+    }
+    
+    [self cacheLevelWithTextures:texturesToCache];
+}
+
+-(void)cacheLevelWithTextures:(NSArray *)texturesToCache {
+    
+    self.cachedTextures = [NSCache new];
+    
+    for (NSString *textureName in texturesToCache) {
+        
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [self.cachedTextures setObject:texture forKey:textureName];
+    }
 }
 
 #pragma mark - UPDATE
@@ -830,46 +781,9 @@
         place, if not then get one
         for the index.
      */
-    SKTexture *texture;
+    NSString *textureImageName = [self getTextureImageNameForSegment:segmentType atIndex:index];
     
-    switch (segmentType) {
-        case BACKGROUND:
-            
-            if (self.nextBackgroundTextureToPlace) {
-                texture = self.nextBackgroundTextureToPlace;
-            }
-            
-            break;
-            
-        case MIDDLEGROUND:
-            
-            if (self.nextMiddlegroundTextureToPlace) {
-                texture = self.nextMiddlegroundTextureToPlace;
-            }
-            
-            break;
-            
-        case FOREGROUND:
-            
-            if (self.nextForegroundTextureToPlace) {
-                texture = self.nextForegroundTextureToPlace;
-            }
-            
-            break;
-            
-        default:
-            break;
-    }
-    
-    if (!texture) {
-        texture = [SKTexture textureWithImageNamed:[self getTextureImageNameForSegment:segmentType atIndex:index]];
-    }
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self prepareNextSegmentsForPlacementWithType:segmentType atIndex:(NSInteger)index];
-    });
-    
-    return texture;
+    return [self.cachedTextures objectForKey:textureImageName];
 }
 
 -(NSString *)getTextureImageNameForSegment:(SegmentType)segmentType atIndex:(NSInteger)index {

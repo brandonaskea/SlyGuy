@@ -11,6 +11,13 @@
 #import <SpriteKit/SpriteKit.h>
 #import "ScreenSegment.h"
 
+@protocol EnvironmentManagerDelegate <NSObject>
+
+@required
+-(void)cacheLevelWithTextures:(NSArray *)textures;
+
+@end
+
 @interface EnvironmentManager : NSObject
 
 @property (nonatomic, assign) Level             level;
@@ -29,7 +36,7 @@
 
 @property (nonatomic, assign) Direction scrollingDirection;
 
--(id)initWithLevel:(Level)level andScene:(id)scene;
+-(id)initWithLevel:(Level)level;
 -(void)updateCurrentOffsetWithOffset:(NSInteger)offset;
 -(void)monitorBackgroundForUpdates;
 -(void)monitorMiddlegroundForUpdates;
