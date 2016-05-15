@@ -32,6 +32,7 @@
 		F81E4BB91CE2C558001D3C3C /* BeachScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F81E4BB81CE2C558001D3C3C /* BeachScene.sks */; };
 		F81E4BBC1CE3090D001D3C3C /* CityScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F81E4BBB1CE3090D001D3C3C /* CityScene.sks */; };
 		F81E4BBF1CE30959001D3C3C /* CityScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F81E4BBE1CE30959001D3C3C /* CityScene.m */; };
+		F88A98201CE8667F00B51B06 /* ScreenTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A981F1CE8667F00B51B06 /* ScreenTexture.m */; };
 		F8D803231CD34B90003AB7E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8D803221CD34B90003AB7E1 /* LaunchScreen.storyboard */; };
 		F8D803251CD34C31003AB7E1 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8D803241CD34C31003AB7E1 /* Launch.storyboard */; };
 		F8D803271CD38A3D003AB7E1 /* LogoTempLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = F8D803261CD38A3D003AB7E1 /* LogoTempLaunch.png */; };
@@ -85,6 +86,8 @@
 		F81E4BBB1CE3090D001D3C3C /* CityScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CityScene.sks; sourceTree = "<group>"; };
 		F81E4BBD1CE30959001D3C3C /* CityScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityScene.h; sourceTree = "<group>"; };
 		F81E4BBE1CE30959001D3C3C /* CityScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityScene.m; sourceTree = "<group>"; };
+		F88A981E1CE8667F00B51B06 /* ScreenTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenTexture.h; sourceTree = "<group>"; };
+		F88A981F1CE8667F00B51B06 /* ScreenTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenTexture.m; sourceTree = "<group>"; };
 		F8D803221CD34B90003AB7E1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F8D803241CD34C31003AB7E1 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		F8D803261CD38A3D003AB7E1 /* LogoTempLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoTempLaunch.png; sourceTree = "<group>"; };
@@ -239,6 +242,8 @@
 				F80B928A1CC9934800656EA2 /* EnvironmentManager.m */,
 				F80B928B1CC9934800656EA2 /* ScreenSegment.h */,
 				F80B928C1CC9934800656EA2 /* ScreenSegment.m */,
+				F88A981E1CE8667F00B51B06 /* ScreenTexture.h */,
+				F88A981F1CE8667F00B51B06 /* ScreenTexture.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -400,6 +405,7 @@
 				F8F8A7EE1CD0B04E0098533D /* MainMenuViewController.m in Sources */,
 				F80B92501CC990B300656EA2 /* AppDelegate.m in Sources */,
 				F80B92861CC992B100656EA2 /* UIColor+GameColors.m in Sources */,
+				F88A98201CE8667F00B51B06 /* ScreenTexture.m in Sources */,
 				F80B924D1CC990B300656EA2 /* main.m in Sources */,
 				F81E4BB21CE1991A001D3C3C /* HomeScene.m in Sources */,
 				F8F8A7EB1CD0AA1D0098533D /* LaunchView.m in Sources */,

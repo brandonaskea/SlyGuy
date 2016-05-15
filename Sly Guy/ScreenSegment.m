@@ -52,7 +52,6 @@
 //        [self setTexture:[self.environmentManager placeTextureInSegmentForType:self.segmentType atIndex:self.index]];
 //        [self fireShouldUpdateTextureTimer];
 //    }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         self.index = offset;
         [self setTexture:[self.environmentManager placeTextureInSegmentForType:self.segmentType atIndex:self.index]];
@@ -81,7 +80,7 @@
     self.index = 0;
 }
 
--(void)scrollInDirection:(Direction)direction {
+-(void)scrollInDirection:(Direction)direction withTimeSinceLastUpdate:(CFTimeInterval)timeSinceLastUpdate {
     
     CGFloat speed;
     switch (self.segmentType) {
@@ -103,11 +102,11 @@
     }
     
     if (direction == LEFT) {
-        self.position = CGPointMake(self.position.x+speed, self.position.y);
+        self.position = CGPointMake(self.position.x+speed*timeSinceLastUpdate, self.position.y);
     }
     
     else if (direction == RIGHT) {
-        self.position = CGPointMake(self.position.x-speed, self.position.y);
+        self.position = CGPointMake(self.position.x-speed*timeSinceLastUpdate, self.position.y);
     }
     
     else {

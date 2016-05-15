@@ -12,6 +12,7 @@
 @implementation BeachScene
 
 -(void)setUpLevel {
+    [super setUpLevel];
     
     self.sceneType = SCROLLABLE;
     SKAction *changeFloorColorAction = [SKAction colorizeWithColor:[SKColor beachSandColorAlternative] colorBlendFactor:1.0 duration:0.01];

@@ -27,6 +27,6 @@
 
 -(id)initWithSize:(CGSize)size forSegmentType:(SegmentType)segmentType withEnvironmentManager:(EnvironmentManager *)environmentManager;
 -(void)updateTextureWithOffset:(NSInteger)offset;
--(void)scrollInDirection:(Direction)direction;
+-(void)scrollInDirection:(Direction)direction withTimeSinceLastUpdate:(CFTimeInterval)timeSinceLastUpdate;
 
 @end

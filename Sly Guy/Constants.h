@@ -32,7 +32,7 @@ typedef void (^Completion)(BOOL completed);
 static CGFloat kMenuContainerCornerRadius = 8;
 
 /*
- *  PLAYER SINGLETON CONSTANTS
+ *  PLAYER CONSTANTS
  */
 
 static NSString * const kPlayerDefaults = @"PlayerDefaults";    // NSDictionary that holds below keys
@@ -40,6 +40,8 @@ static NSString * const kPlayerDefaultsHealth = @"PlayerDefaultsHealth";  // NSN
 static NSString * const kPlayerDefaultsMoney = @"PlayerDefaultsMoney";   // NSNumber with NSInteger (1 = 1 dollar)
 static NSString * const kPlayerDefaultsCar = @"PlayerDefaultsCar";       // NSString The Car (if any) the Player owns
 static NSString * const kPlayerDefaultsCurrentLevel = @"PlayerDefaultsCurrentLevel"; // The level that the Player is either currently playing, or the one that needs to be loaded
+
+static CGFloat const kPlayerZPosition = 3;
 
 /*
  *  LAUNCH IMAGE CONSTANTS
@@ -99,8 +101,8 @@ static CGFloat kMoneyLabelHeight = 20;
 static CGFloat kPlayerFreezeThreshold = 400;
 
 
-static CGFloat kScrollingBackgroundWalkingSpeed = 8.33;
-//static CGFloat kScrollingBackgroundWalkingSpeed = 16.17;
+//static CGFloat kScrollingBackgroundWalkingSpeed = 8.33;
+static CGFloat kScrollingBackgroundWalkingSpeed = 400;
 static CGFloat kScrollingBackgroundDrivingSpeed = 20;
 static CGFloat kScrollingBackgroundFlyingSpeed = 30;
 
@@ -225,7 +227,7 @@ typedef NS_ENUM(NSUInteger, SceneType) {
 typedef NS_ENUM(NSUInteger, SegmentType) {
     BACKGROUND = 1,
     MIDDLEGROUND = 2,
-    FOREGROUND = 3
+    FOREGROUND = 4
 };
 
 typedef NS_ENUM(NSUInteger, PlayerState) {

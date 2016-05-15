@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import <SpriteKit/SpriteKit.h>
 #import "ScreenSegment.h"
+#import "ScreenTexture.h"
 
 @protocol EnvironmentManagerDelegate <NSObject>
 

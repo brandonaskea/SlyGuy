@@ -11,6 +11,18 @@
 
 @implementation ScrollScene
 
+-(void)setUpLevel {
+    
+    /*
+     *  There must be the alternate ScreenSegments
+        in place because we will eventually scroll.
+        Place it's initial texture.
+     */
+    [self.background2 setTexture:[self.environmentManager placeTextureInSegmentForType:BACKGROUND atIndex:1]];
+    [self.middleground2 setTexture:[self.environmentManager placeTextureInSegmentForType:MIDDLEGROUND atIndex:1]];
+    [self.foreground2 setTexture:[self.environmentManager placeTextureInSegmentForType:FOREGROUND atIndex:1]];
+}
+
 #pragma mark - USER ACTIONS
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event  {

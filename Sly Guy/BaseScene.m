@@ -27,8 +27,10 @@
     
     BOOL                            shouldJump;
     
-    Player  *sharedPlayer;
+    Player                          *sharedPlayer;
 }
+
+@property (assign) CFTimeInterval lastUpdateTimeInterval;
 
 @end
 
@@ -377,7 +379,7 @@
     self.floor = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(CGRectGetWidth(self.frame), 20)];
     self.floor.anchorPoint = CGPointMake(0, 0);
     self.floor.position = CGPointMake(0, 0);
-    self.floor.zPosition = 5;
+    self.floor.zPosition = kPlayerZPosition;
     [self addChild:self.floor];
     
     // Left Wall
@@ -402,6 +404,7 @@
     
     // Set up the player node
     self.player = [sharedPlayer playerNodeFromPlayer];
+    self.player.zPosition = kPlayerZPosition;
     
     // add physics to player
     physicsBody = [SKPhysicsBody bodyWithBodies:@[]];
@@ -707,7 +710,7 @@
 //    NSString* currentSegment;
 //    NSString* nextSegment;
     
-    scoreLabel.text = [NSString stringWithFormat:@"BS1 idx %ld | BS2 idx %ld | FS1 idx %ld | FS2 idx %ld | Current ScreenSeg %ld", self.background1.index, self.background2.index,self.foreground1.index, self.foreground2.index, self.environmentManager.currentScreenOffset];
+    scoreLabel.text = [NSString stringWithFormat:@"BS1 idx %ld | BS2 idx %ld | FS1 idx %ld | FS2 idx %ld | Current ScreenSeg %ld | Current Offset %ld", self.background1.index, self.background2.index,self.foreground1.index, self.foreground2.index, self.environmentManager.currentScreenOffset, self.environmentManager.currentOffset];
     
 //    scoreLabel.text = [NSString stringWithFormat:@"Current Background Segment %ld", self.environmentManager.currentBackgroundScreenSegment];
     
@@ -728,6 +731,12 @@
     
     // 1) Only perform updates to the game if the we are upaused.
     if (self.isPaused == NO && [self integrityCheck]) {
+        
+        CFTimeInterval timeSinceLastUpdate = currentTime - self.lastUpdateTimeInterval;
+        self.lastUpdateTimeInterval = currentTime;
+        if (timeSinceLastUpdate > 1) { // more than a second since last update
+            timeSinceLastUpdate = 1.0 / 60.0;
+        }
         
         /*
          *  2) Floor detection. So the player does not fall through the floor.
@@ -762,7 +771,7 @@
         if (self.isScrollingEnabled && [self shouldBeginScrollingInDirection:self.scrollingDirection]) {
             
             self.isPlayerFrozen = YES;
-            [self scrollEnvironment];
+            [self scrollEnvironmentWithTimeSinceLastUpdate:timeSinceLastUpdate];
         }
         else {
             self.isPlayerFrozen = NO;
@@ -939,7 +948,7 @@
 
 #pragma mark - SCROLLING
 
--(void)scrollEnvironment {
+-(void)scrollEnvironmentWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLastUpdate  {
     
     // Update Environment Manager
     self.environmentManager.scrollingDirection = self.scrollingDirection;
@@ -950,19 +959,19 @@
         
         // BACKGROUND
         [self.environmentManager monitorBackgroundForUpdates];
-        [self.background1 scrollInDirection:self.scrollingDirection];
-        [self.background2 scrollInDirection:self.scrollingDirection];
+        [self.background1 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
+        [self.background2 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
         
         // MIDDLEGROUND
         [self.environmentManager monitorMiddlegroundForUpdates];
-        [self.middleground1 scrollInDirection:self.scrollingDirection];
-        [self.middleground2 scrollInDirection:self.scrollingDirection];
+        [self.middleground1 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
+        [self.middleground2 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
     }
     
     // FOREGROUND
     [self.environmentManager monitorForegroundForUpdates];
-    [self.foreground1 scrollInDirection:self.scrollingDirection];
-    [self.foreground2 scrollInDirection:self.scrollingDirection];
+    [self.foreground1 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
+    [self.foreground2 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
     
 }
 
