@@ -236,7 +236,7 @@
     
     self.foreground1 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) forSegmentType:FOREGROUND withEnvironmentManager:self.environmentManager];
 //    self.foreground1 = [[ScreenSegment alloc] initWithColor:[SKColor redColor] size:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
-    self.foreground1.size = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+    self.foreground1.name = kForeground1Key;
     self.foreground1.environmentManager = self.environmentManager;
     self.foreground1.anchorPoint = CGPointZero;
     self.foreground1.position = CGPointMake(0, 0);
@@ -245,7 +245,7 @@
     
     self.foreground2 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) forSegmentType:FOREGROUND withEnvironmentManager:self.environmentManager];
 //    self.foreground2 = [[ScreenSegment alloc] initWithColor:[SKColor blueColor] size:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
-    self.foreground2.size = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+    self.foreground2.name = kForeground2Key;
     self.foreground2.environmentManager = self.environmentManager;
     self.foreground2.anchorPoint = CGPointZero;
     self.foreground2.position = CGPointMake(self.foreground1.size.width-1, 0);
@@ -264,12 +264,14 @@
          */
         
         self.middleground1 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) forSegmentType:MIDDLEGROUND withEnvironmentManager:self.environmentManager];
+        self.middleground1.name = kMiddleground1Key;
         self.middleground1.anchorPoint = CGPointZero;
         self.middleground1.position = CGPointMake(0, 0);
         self.middleground1.zPosition = MIDDLEGROUND;
         [self addChild:self.middleground1];
         
         self.middleground2 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) forSegmentType:MIDDLEGROUND withEnvironmentManager:self.environmentManager];
+        self.middleground2.name = kMiddleground2Key;
         self.middleground2.anchorPoint = CGPointZero;
         self.middleground2.position = CGPointMake(self.middleground1.size.width-1, 0);
         self.middleground2.zPosition = MIDDLEGROUND;
@@ -278,14 +280,14 @@
         middlegrounds = [NSArray arrayWithObjects:self.middleground1, self.middleground2, nil];
         
         self.background1 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame)) forSegmentType:BACKGROUND withEnvironmentManager:self.environmentManager];
-        self.background1.size = CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame));
+        self.background1.name = kBackground1Key;
         self.background1.anchorPoint = CGPointZero;
         self.background1.position = CGPointMake(0, 0);
         self.background1.zPosition = BACKGROUND;
         [self addChild:self.background1];
         
         self.background2 = [[ScreenSegment alloc] initWithSize:CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame)) forSegmentType:BACKGROUND withEnvironmentManager:self.environmentManager];
-        self.background2.size = CGSizeMake(CGRectGetWidth(self.frame) + 2, CGRectGetHeight(self.frame));
+        self.background2.name = kBackground2Key;
         self.background2.anchorPoint = CGPointZero;
         self.background2.position = CGPointMake(self.background1.size.width-1, 0);
         self.background2.zPosition = BACKGROUND;
@@ -294,9 +296,7 @@
         backgrounds = [NSArray arrayWithObjects:self.background1, self.background2, nil];
         
     }
-    
-    [self.environmentManager configureEnvironmentWithBackgroundSegments:backgrounds middlegroundSegments:middlegrounds andForegroundSegments:foregrounds];
-    
+        
     [self.foreground1 updateTextureWithOffset:0];
     
     if (self.level % 2 == 0) {
@@ -379,7 +379,7 @@
     self.floor = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(CGRectGetWidth(self.frame), 20)];
     self.floor.anchorPoint = CGPointMake(0, 0);
     self.floor.position = CGPointMake(0, 0);
-    self.floor.zPosition = kPlayerZPosition;
+    self.floor.zPosition = kPlayerIndoorZPosition;
     [self addChild:self.floor];
     
     // Left Wall
@@ -404,7 +404,6 @@
     
     // Set up the player node
     self.player = [sharedPlayer playerNodeFromPlayer];
-    self.player.zPosition = kPlayerZPosition;
     
     // add physics to player
     physicsBody = [SKPhysicsBody bodyWithBodies:@[]];
@@ -958,18 +957,18 @@
         // Only for outdoor levels
         
         // BACKGROUND
-        [self.environmentManager monitorBackgroundForUpdates];
+        [self.environmentManager monitorForUpdatesWithFirstScreenSegement:self.background1 andSecondScreenSegment:self.background2 withType:BACKGROUND];
         [self.background1 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
         [self.background2 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
         
         // MIDDLEGROUND
-        [self.environmentManager monitorMiddlegroundForUpdates];
+        [self.environmentManager monitorForUpdatesWithFirstScreenSegement:self.middleground1 andSecondScreenSegment:self.middleground2 withType:MIDDLEGROUND];
         [self.middleground1 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
         [self.middleground2 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
     }
     
     // FOREGROUND
-    [self.environmentManager monitorForegroundForUpdates];
+    [self.environmentManager monitorForUpdatesWithFirstScreenSegement:self.foreground1 andSecondScreenSegment:self.foreground2 withType:FOREGROUND];
     [self.foreground1 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
     [self.foreground2 scrollInDirection:self.scrollingDirection withTimeSinceLastUpdate:timeSinceLastUpdate];
     

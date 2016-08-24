@@ -1,6 +1,6 @@
 //
 //  ScreenSegment.h
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 4/19/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.

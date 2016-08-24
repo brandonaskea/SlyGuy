@@ -45,6 +45,8 @@
     }
 }
 
+#pragma mark - SET UP METHODS
+
 -(void)setUpPlayer {
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
@@ -131,7 +133,6 @@
 -(void)setUpUI {
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
     self.backgroundImageView.alpha = 0;
     
     // MENU
@@ -233,6 +234,8 @@
     }];
 
 }
+
+#pragma mark - BUTTON ACTIONS
 
 - (IBAction)startGameButtonTapped:(id)sender {
     

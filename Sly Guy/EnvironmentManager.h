@@ -1,6 +1,6 @@
 //
 //  EnvironmentManager.h
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 4/19/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -12,10 +12,12 @@
 #import "ScreenSegment.h"
 #import "ScreenTexture.h"
 
+@class ScreenSegment;
+
 @protocol EnvironmentManagerDelegate <NSObject>
 
 @required
--(void)cacheLevelWithTextures:(NSArray *)textures;
+-(void)didRecycleScreenSegment:(ScreenSegment *)screenSegment;
 
 @end
 
@@ -37,13 +39,15 @@
 
 @property (nonatomic, assign) Direction scrollingDirection;
 
+@property (nonatomic, weak)   id<EnvironmentManagerDelegate> delegate;
+
 -(id)initWithLevel:(Level)level;
 -(void)updateCurrentOffsetWithOffset:(NSInteger)offset;
 -(void)monitorBackgroundForUpdates;
 -(void)monitorMiddlegroundForUpdates;
 -(void)monitorForegroundForUpdates;
+-(void)monitorForUpdatesWithFirstScreenSegement:(ScreenSegment *)firstScreenSegment andSecondScreenSegment:(ScreenSegment *)secondScreenSegment withType:(SegmentType)segmentType ;
 
 -(SKTexture *)placeTextureInSegmentForType:(SegmentType)segmentType atIndex:(NSInteger)index;
--(void)configureEnvironmentWithBackgroundSegments:(NSArray *)backgroundSegments middlegroundSegments:(NSArray *)middlegroundSegments andForegroundSegments:(NSArray *)foregroundSegments;
 
 @end

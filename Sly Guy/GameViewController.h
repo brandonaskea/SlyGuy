@@ -1,6 +1,6 @@
 //
 //  GameViewController.h
-//  Trumpd
+//  Sly Guy
 //
 
 //  Copyright (c) 2016 Brandon Askea. All rights reserved.

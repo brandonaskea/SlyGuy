@@ -1,6 +1,6 @@
 //
 //  GameUtility.h
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 1/31/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -11,7 +11,7 @@
 
 @interface GameUtility : NSObject
 
-+(NSString *)getRandomQuoteFromDonaldTrump;
++(NSString *)getMenuTitle;
 +(NSInteger)getRandomNumberWithCapacity:(NSInteger)capacity;
 +(NSInteger)getRandomNumberBetween:(NSInteger)one andTwo:(NSInteger)two;
 +(NSInteger)getNumberOfEvenlySpacedItemsWithWidth:(CGFloat)width inEnvironmentLength:(NSInteger)environmentLength withSpacing:(CGFloat)spacing;

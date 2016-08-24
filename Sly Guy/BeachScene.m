@@ -17,6 +17,10 @@
     self.sceneType = SCROLLABLE;
     SKAction *changeFloorColorAction = [SKAction colorizeWithColor:[SKColor beachSandColorAlternative] colorBlendFactor:1.0 duration:0.01];
     [self.floor runAction:changeFloorColorAction];
+    
+    // Element Manager
+    self.elementManager = [ElementManager new];
+    self.environmentManager.delegate = self.elementManager;
 }
 
 @end

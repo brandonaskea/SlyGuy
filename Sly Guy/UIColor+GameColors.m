@@ -1,6 +1,6 @@
 //
 //  UIColor+GameColors.m
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 1/31/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -10,7 +10,7 @@
 
 @implementation UIColor (GameColors)
 
-+(UIColor *)trumpGold {
++(UIColor *)gold {
     
     return [UIColor colorWithRed:(255/255.0) green:(230/255.0) blue:(33/255.0) alpha:1];
 }
@@ -28,6 +28,16 @@
 +(UIColor *)skyColorAlternateSunset {
     
     return [UIColor colorWithRed:(190/255.0) green:(170/255.0) blue:(115/255.0) alpha:1];
+}
+
++(UIColor *)moneyGlowColor {
+    
+    return [UIColor colorWithRed:(40/255.0) green:(100/255.0) blue:(95/255.0) alpha:1];
+}
+
++(UIColor *)moneyGlowColorAlternate {
+    
+    return [UIColor colorWithRed:(40/255.0) green:(100/255.0) blue:(95/255.0) alpha:0.5];
 }
 
 #pragma mark - HOME COLORS

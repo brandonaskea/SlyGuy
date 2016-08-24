@@ -1,6 +1,6 @@
 //
 //  ScrollScene.m
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 4/18/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -44,7 +44,7 @@
 
 -(void)update:(NSTimeInterval)currentTime {
     [super update:currentTime];
-    
+    [self checkForElementCollision];
 }
 
 -(BOOL)shouldBeginScrollingInDirection:(Direction)direction {
@@ -104,6 +104,11 @@
     else {
         return NO;
     }
+    
+}
+
+-(void)checkForElementCollision {
+    
     
 }
 

@@ -1,6 +1,6 @@
 //
 //  UIColor+GameColors.h
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 1/31/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -11,10 +11,11 @@
 
 @interface UIColor (GameColors)
 
-+(UIColor *)trumpGold;
++(UIColor *)gold;
 +(UIColor *)skyColor;
 +(UIColor *)cityFloorColor;
 +(UIColor *)slyHighFloorColor;
 +(UIColor *)beachSandColor;
 +(UIColor *)beachSandColorAlternative;
++(UIColor *)moneyGlowColor;
 @end

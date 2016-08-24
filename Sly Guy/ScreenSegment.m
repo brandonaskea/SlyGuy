@@ -1,6 +1,6 @@
 //
 //  ScreenSegment.m
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 4/19/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -52,10 +52,12 @@
 //        [self setTexture:[self.environmentManager placeTextureInSegmentForType:self.segmentType atIndex:self.index]];
 //        [self fireShouldUpdateTextureTimer];
 //    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.index = offset;
-        [self setTexture:[self.environmentManager placeTextureInSegmentForType:self.segmentType atIndex:self.index]];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        self.index = offset;
+//        [self setTexture:[self.environmentManager placeTextureInSegmentForType:self.segmentType atIndex:self.index]];
+//    });
+    self.index = offset;
+    [self setTexture:[self.environmentManager placeTextureInSegmentForType:self.segmentType atIndex:self.index]];
     
 }
 

@@ -1,6 +1,6 @@
 //
 //  Constants.h
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 1/24/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -41,7 +41,8 @@ static NSString * const kPlayerDefaultsMoney = @"PlayerDefaultsMoney";   // NSNu
 static NSString * const kPlayerDefaultsCar = @"PlayerDefaultsCar";       // NSString The Car (if any) the Player owns
 static NSString * const kPlayerDefaultsCurrentLevel = @"PlayerDefaultsCurrentLevel"; // The level that the Player is either currently playing, or the one that needs to be loaded
 
-static CGFloat const kPlayerZPosition = 3;
+static CGFloat const kPlayerIndoorZPosition = 5;
+static CGFloat const kPlayerOutdoorZPosition = 3;
 
 /*
  *  LAUNCH IMAGE CONSTANTS
@@ -108,6 +109,19 @@ static CGFloat kScrollingBackgroundFlyingSpeed = 30;
 
 static CGFloat kEnvironmentItemsMinimumSpacing = 30;
 
+// ELEMENT CONSTANTS
+static CGFloat kElementGlowDuration = 1;
+static CGFloat kElementFadeDuration = 0.25;
+static NSString * const kElementRepeatGlowKey = @"ElementRepeatGlow";
+static NSString * const kForeground1Key = @"Foreground1";
+static NSString * const kForeground2Key = @"Foreground2";
+static NSString * const kMiddleground1Key = @"Middleground1";
+static NSString * const kMiddleground2Key = @"Middleground2";
+static NSString * const kBackground1Key = @"Background1";
+static NSString * const kBackground2Key = @"Background2";
+
+
+
 // SCREEN SEGMENTS
 
 static NSInteger kTotalBackgroundSegmentsCity = 10;
@@ -147,7 +161,7 @@ static CGFloat kSwipeMenuHeaderUsernameLabelHeight = 20;
 static CGFloat kSwipeMenuHeaderUsernameLabelPadding = 16;
 static CGFloat kSwipeMenuHeaderBottomPadding = 20;
 
-static CGFloat kSwipeMenuHeaderTrumpQuotePadding = 12;
+static CGFloat kSwipeMenuHeaderQuotePadding = 12;
 
 /*
  *  CALL TO ACTION CONSTANTS
@@ -237,4 +251,13 @@ typedef NS_ENUM(NSUInteger, PlayerState) {
     BADLY_HURT = 4,
     INJURED = 5,
     DEAD = 6
+};
+
+typedef NS_ENUM(NSUInteger, ElementType) {
+    MONEY = 4,
+    DANGER = 6,
+    FRIEND = 8,
+    ENEMY = 12,
+    MYSTERY = 24,
+    NONE = 99,
 };

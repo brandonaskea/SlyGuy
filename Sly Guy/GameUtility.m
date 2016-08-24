@@ -1,6 +1,6 @@
 //
 //  GameUtility.m
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 1/31/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -11,11 +11,9 @@
 
 @implementation GameUtility
 
-+(NSString *)getRandomQuoteFromDonaldTrump {
++(NSString *)getMenuTitle {
     
-//    NSArray *quotes = [NSArray arrayWithObjects:@"Donald Trump: Sometimes by losing a battle you find a way to win the war.", @"Donald Trump: You have to think anyway, so why not think big?", @"Donald Trump: When someone challenges you, fight back. Be brutal, be tough.", @"Donald Trump: In the end, you're measured not by how much you undertake but by how much you finally accomplish.", nil];
-    
-    NSArray *quotes = [NSArray arrayWithObjects:@"Donald Trump: Sometimes by losing a battle you find a way to win the war....................", @"Donald Trump: You have to think anyway, so why not think big?..............................", @"Donald Trump: When someone challenges you, fight back. Be brutal, be tough...........................", @"Donald Trump: In the end, you're measured not by how much you undertake but by how much you finally accomplish....................", nil];
+    NSArray *quotes = [NSArray arrayWithObjects:@"Game Paused. Blah Blah Blah ........................................................................", nil];
 
     
     u_int32_t count = (u_int32_t)quotes.count;

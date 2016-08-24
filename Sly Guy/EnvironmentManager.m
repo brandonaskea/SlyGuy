@@ -1,6 +1,6 @@
 //
 //  EnvironmentManager.m
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 4/19/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -20,15 +20,6 @@
 @property (nonatomic, strong) NSMutableArray    *foregroundTextures;
 @property (nonatomic, strong) NSCache           *cachedTextures;
 
-@property (nonatomic, weak)   ScreenSegment     *background1;
-@property (nonatomic, weak)   ScreenSegment     *background2;
-@property (nonatomic, weak)   ScreenSegment     *middleground1;
-@property (nonatomic, weak)   ScreenSegment     *middleground2;
-@property (nonatomic, weak)   ScreenSegment     *foreground1;
-@property (nonatomic, weak)   ScreenSegment     *foreground2;
-
-@property (nonatomic, weak)   id<EnvironmentManagerDelegate> delegate;
-
 @end
 
 @implementation EnvironmentManager
@@ -47,25 +38,25 @@
 
 #pragma mark - SET UP
 
--(void)configureEnvironmentWithBackgroundSegments:(NSArray *)backgroundSegments middlegroundSegments:(NSArray *)middlegroundSegments andForegroundSegments:(NSArray *)foregroundSegments {
-    
-    // pick out the appropriate dynamic grounds and pair them in this class
-    if (backgroundSegments.count > 1) {
-        self.background1 = [backgroundSegments objectAtIndex:0];
-        self.background2 = [backgroundSegments objectAtIndex:1];
-    }
-    
-    if (middlegroundSegments.count > 1) {
-        self.middleground1 = [middlegroundSegments objectAtIndex:0];
-        self.middleground2 = [middlegroundSegments objectAtIndex:1];
-    }
-    
-    if (foregroundSegments.count > 1) {
-        self.foreground1 = [foregroundSegments objectAtIndex:0];
-        self.foreground2 = [foregroundSegments objectAtIndex:1];
-    }
-
-}
+//-(void)configureEnvironmentWithBackgroundSegments:(NSArray *)backgroundSegments middlegroundSegments:(NSArray *)middlegroundSegments andForegroundSegments:(NSArray *)foregroundSegments {
+//    
+//    // pick out the appropriate dynamic grounds and pair them in this class
+//    if (backgroundSegments.count > 1) {
+//        self.background1 = [backgroundSegments objectAtIndex:0];
+//        self.background2 = [backgroundSegments objectAtIndex:1];
+//    }
+//    
+//    if (middlegroundSegments.count > 1) {
+//        self.middleground1 = [middlegroundSegments objectAtIndex:0];
+//        self.middleground2 = [middlegroundSegments objectAtIndex:1];
+//    }
+//    
+//    if (foregroundSegments.count > 1) {
+//        self.foreground1 = [foregroundSegments objectAtIndex:0];
+//        self.foreground2 = [foregroundSegments objectAtIndex:1];
+//    }
+//
+//}
 
 -(void)setUpEnvironmentSpeeds {
     
@@ -344,208 +335,93 @@
     }
 }
 
--(void)cache:(NSCache *)cache willEvictObject:(id)obj {
-    
-    ScreenTexture *evictedTexture = (ScreenTexture *)obj;
-    
-    NSString *evictedTextureName ;
-}
+//-(void)cache:(NSCache *)cache willEvictObject:(id)obj {
+//    
+//    ScreenTexture *evictedTexture = (ScreenTexture *)obj;
+//    
+//    NSString *evictedTextureName ;
+//}
 
 #pragma mark - UPDATE
 
--(void)monitorBackgroundForUpdates {
+-(void)monitorForUpdatesWithFirstScreenSegement:(ScreenSegment *)firstScreenSegment andSecondScreenSegment:(ScreenSegment *)secondScreenSegment withType:(SegmentType)segmentType {
     
-    switch (self.scrollingDirection) {
-        case LEFT: {
-            
-            // LEFT
-            
-            if (self.background1.position.x > self.background1.size.width){
-                
-                // place it behind background2
-                self.background1.position = CGPointMake(self.background2.position.x - self.background2.size.width, self.background1.position.y);
-                
-                NSInteger largestDequeuedScreenSegment;
-                
-                if (self.background1.index > self.background2.index) {
-                    largestDequeuedScreenSegment = (int)self.background1.index;
-                }
-                else {
-                    largestDequeuedScreenSegment = (int)self.background2.index;
-                }
-                
-                NSInteger nextScreenSegmentToDequeue = (int)largestDequeuedScreenSegment + 1;
-                
-                // safty first
-//                if (nextScreenSegmentToDequeue > self.backgroundTextures.count || nextScreenSegmentToDequeue < 0) {
-//                    nextScreenSegmentToDequeue = 1;
-//                }
-                
-                if (nextScreenSegmentToDequeue <= self.backgroundTextures.count || nextScreenSegmentToDequeue >= 0) {
-                    [self.background1 updateTextureWithOffset:nextScreenSegmentToDequeue];
-                }
-                
-            }
-            
-            // 4) same as above but for background2 instead
-            if (self.background2.position.x > self.background2.size.width) {
-                
-                // place it behind background1
-                self.background2.position = CGPointMake(self.background1.position.x - self.background1.size.width, self.background2.position.y);
-                
-                NSInteger largestDequeuedScreenSegment;
-                
-                if (self.background1.index > self.background2.index) {
-                    largestDequeuedScreenSegment = (int)self.background1.index;
-                }
-                else {
-                    largestDequeuedScreenSegment = (int)self.background2.index;
-                }
-                
-                NSInteger nextScreenSegmentToDequeue = (int)largestDequeuedScreenSegment + 1;
-                
-                // safty first
-//                if (nextScreenSegmentToDequeue > self.backgroundTextures.count || nextScreenSegmentToDequeue < 0) {
-//                    nextScreenSegmentToDequeue = 1;
-//                }
-                
-                if (nextScreenSegmentToDequeue <= self.backgroundTextures.count || nextScreenSegmentToDequeue >= 0) {
-                    [self.background2 updateTextureWithOffset:nextScreenSegmentToDequeue];
-                }
-                
-            }
-            
+    NSInteger maximumNumberOfSegments;
+    switch (segmentType) {
+        case BACKGROUND:
+            maximumNumberOfSegments = self.backgroundTextures.count;
             break;
-        }
             
-        case RIGHT: {
-            
-            // RIGHT
-            
-            if (self.background1.position.x < -self.background1.size.width){
-                
-                self.background1.position = CGPointMake(self.background2.position.x + self.background2.size.width, self.background1.position.y);
-                
-                NSInteger smallestDequeuedScreenSegment;
-                
-                if (self.background1.index < self.background2.index) {
-                    smallestDequeuedScreenSegment = (int)self.background1.index;
-                }
-                else {
-                    smallestDequeuedScreenSegment = (int)self.background2.index;
-                }
-                
-                NSInteger nextScreenSegmentToDequeue = (int)smallestDequeuedScreenSegment - 1;
-                
-                // safty first
-                //            if (nextScreenSegmentToDequeue > self.environmentManager.totalBackgroundScreenSegments || nextScreenSegmentToDequeue < 0) {
-                //                nextScreenSegmentToDequeue = 1;
-                //            }
-                
-                if (nextScreenSegmentToDequeue <= self.backgroundTextures.count || nextScreenSegmentToDequeue >= 0) {
-                    [self.background1 updateTextureWithOffset:nextScreenSegmentToDequeue];
-                }
-                
-            }
-            
-            if (self.background2.position.x < -self.background2.size.width) {
-                
-                self.background2.position = CGPointMake(self.background1.position.x + self.background1.size.width, self.background2.position.y);
-                
-                // 5) Update EnvironmentManager
-                // This is where we will place the look of each segment
-                // In order to do so we must remove the segment we placed on it before
-                // Then we will add the new segment it is place.
-                NSInteger smallestDequeuedScreenSegment;
-                
-                if (self.background1.index < self.background2.index) {
-                    smallestDequeuedScreenSegment = (int)self.background1.index;
-                }
-                else {
-                    smallestDequeuedScreenSegment = (int)self.background2.index;
-                }
-                
-                NSInteger nextScreenSegmentToDequeue = (int)smallestDequeuedScreenSegment - 1;
-                
-                // safty first
-//                if (nextScreenSegmentToDequeue > self.backgroundTextures.count || nextScreenSegmentToDequeue < 0) {
-//                    nextScreenSegmentToDequeue = 1;
-//                }
-                
-                if (nextScreenSegmentToDequeue <= self.backgroundTextures.count || nextScreenSegmentToDequeue >= 0) {
-                    [self.background2 updateTextureWithOffset:nextScreenSegmentToDequeue];
-                }
-                
-            }
-            
+        case MIDDLEGROUND:
+            maximumNumberOfSegments = self.middlegroundTextures.count;
             break;
-        }
+            
+        case FOREGROUND:
+            maximumNumberOfSegments = self.foregroundTextures.count;
+            break;
             
         default:
             break;
     }
     
-}
-
--(void)monitorMiddlegroundForUpdates {
-    
     switch (self.scrollingDirection) {
         case LEFT: {
             
             // LEFT
             
-            if (self.middleground1.position.x > self.middleground1.size.width){
+            if (firstScreenSegment.position.x > firstScreenSegment.size.width){
                 
-                // place it behind background2
-                self.middleground1.position = CGPointMake(self.middleground2.position.x - self.middleground2.size.width, self.middleground1.position.y);
+                if (segmentType == FOREGROUND) {
+                    self.currentScreenOffset += 1;
+                }
+                
+                firstScreenSegment.position = CGPointMake(secondScreenSegment.position.x - secondScreenSegment.size.width, firstScreenSegment.position.y);
                 
                 
                 NSInteger largestDequeuedScreenSegment;
                 
-                if (self.middleground1.index > self.middleground2.index) {
-                    largestDequeuedScreenSegment = self.background1.index;
+                if (firstScreenSegment.index > secondScreenSegment.index) {
+                    largestDequeuedScreenSegment = (int)firstScreenSegment.index;
                 }
                 else {
-                    largestDequeuedScreenSegment = self.middleground2.index;
+                    largestDequeuedScreenSegment = (int)secondScreenSegment.index;
                 }
                 
-                NSInteger nextScreenSegmentToDequeue = largestDequeuedScreenSegment + 1;
+                NSInteger nextScreenSegmentToDequeue = (int)largestDequeuedScreenSegment + 1;
                 
-                // safty first
-                //            if (nextScreenSegmentToDequeue > self.environmentManager.totalBackgroundScreenSegments || nextScreenSegmentToDequeue < 0) {
-                //                nextScreenSegmentToDequeue = 1;
-                //            }
-                
-                if (nextScreenSegmentToDequeue <= self.middlegroundTextures.count && nextScreenSegmentToDequeue >= 0) {
-                    [self.middleground1 updateTextureWithOffset:nextScreenSegmentToDequeue];
+                if (nextScreenSegmentToDequeue <= maximumNumberOfSegments && nextScreenSegmentToDequeue >= 0) {
+                    [firstScreenSegment updateTextureWithOffset:nextScreenSegmentToDequeue];
+                    if (segmentType == FOREGROUND) {
+                        [self.delegate didRecycleScreenSegment:firstScreenSegment];
+                    }
                 }
                 
             }
             
-            // 4) same as above but for background2 instead
-            if (self.middleground2.position.x > self.middleground2.size.width) {
+            if (secondScreenSegment.position.x > secondScreenSegment.size.width) {
                 
-                // place it behind background1
-                self.middleground2.position = CGPointMake(self.middleground1.position.x - self.middleground1.size.width, self.middleground2.position.y);
+                if (segmentType == FOREGROUND) {
+                    self.currentScreenOffset += 1;
+                }
+                
+                secondScreenSegment.position = CGPointMake(firstScreenSegment.position.x - firstScreenSegment.size.width, secondScreenSegment.position.y);
                 
                 NSInteger largestDequeuedScreenSegment;
                 
-                if (self.middleground1.index > self.middleground2.index) {
-                    largestDequeuedScreenSegment = self.middleground1.index;
+                if (firstScreenSegment.index > secondScreenSegment.index) {
+                    largestDequeuedScreenSegment = (int)firstScreenSegment.index;
                 }
                 else {
-                    largestDequeuedScreenSegment = self.middleground2.index;
+                    largestDequeuedScreenSegment = (int)secondScreenSegment.index;
                 }
                 
-                NSInteger nextScreenSegmentToDequeue = largestDequeuedScreenSegment + 1;
+                NSInteger nextScreenSegmentToDequeue = (int)largestDequeuedScreenSegment + 1;
                 
-                // safty first
-                //            if (nextScreenSegmentToDequeue > self.environmentManager.totalBackgroundScreenSegments || nextScreenSegmentToDequeue < 0) {
-                //                nextScreenSegmentToDequeue = 1;
-                //            }
-                
-                if (nextScreenSegmentToDequeue <= self.middlegroundTextures.count && nextScreenSegmentToDequeue >= 0) {
-                    [self.middleground2 updateTextureWithOffset:nextScreenSegmentToDequeue];
+                if (nextScreenSegmentToDequeue <= maximumNumberOfSegments && nextScreenSegmentToDequeue >= 0) {
+                    [secondScreenSegment updateTextureWithOffset:nextScreenSegmentToDequeue];
+                    if (segmentType == FOREGROUND) {
+                        [self.delegate didRecycleScreenSegment:secondScreenSegment];
+                    }
                 }
                 
             }
@@ -557,197 +433,52 @@
             
             // RIGHT
             
-            if (self.middleground1.position.x < -self.middleground1.size.width){
-                
-                self.middleground1.position = CGPointMake(self.middleground2.position.x + self.middleground2.size.width, self.middleground1.position.y);
-                
-                NSInteger smallestDequeuedScreenSegment;
-                
-                if (self.middleground1.index < self.middleground2.index) {
-                    smallestDequeuedScreenSegment = self.middleground1.index;
-                }
-                else {
-                    smallestDequeuedScreenSegment = self.middleground2.index;
-                }
-                
-                NSInteger nextScreenSegmentToDequeue = smallestDequeuedScreenSegment - 1;
-                
-                // safty first
-                //            if (nextScreenSegmentToDequeue > self.environmentManager.totalBackgroundScreenSegments || nextScreenSegmentToDequeue < 0) {
-                //                nextScreenSegmentToDequeue = 1;
-                //            }
-                
-                if (nextScreenSegmentToDequeue <= self.middlegroundTextures.count && nextScreenSegmentToDequeue >= 0) {
-                    [self.middleground1 updateTextureWithOffset:nextScreenSegmentToDequeue];
-                }
-                
-            }
-            
-            if (self.middleground2.position.x < -self.middleground2.size.width) {
-                
-                self.middleground2.position = CGPointMake(self.middleground1.position.x + self.middleground1.size.width, self.middleground2.position.y);
-                
-                // 5) Update EnvironmentManager
-                // This is where we will place the look of each segment
-                // In order to do so we must remove the segment we placed on it before
-                // Then we will add the new segment it is place.
-                NSInteger smallestDequeuedScreenSegment;
-                
-                if (self.middleground1.index < self.middleground2.index) {
-                    smallestDequeuedScreenSegment = self.middleground1.index;
-                }
-                else {
-                    smallestDequeuedScreenSegment = self.middleground2.index;
-                }
-                
-                NSInteger nextScreenSegmentToDequeue = smallestDequeuedScreenSegment - 1;
-                
-                // safty first
-                //            if (nextScreenSegmentToDequeue > self.environmentManager.totalBackgroundScreenSegments || nextScreenSegmentToDequeue < 0) {
-                //                nextScreenSegmentToDequeue = 1;
-                //            }
-                
-                if (nextScreenSegmentToDequeue <= self.middlegroundTextures.count && nextScreenSegmentToDequeue >= 0) {
-                    [self.middleground2 updateTextureWithOffset:nextScreenSegmentToDequeue];
-                }
-                
-            }
-            
-            break;
-        }
-            
-        default:
-            break;
-    }
-    
-}
-
-
--(void)monitorForegroundForUpdates {
-    
-    switch (self.scrollingDirection) {
-        case LEFT: {
-            
-            // LEFT
-            
-            if (self.foreground1.position.x > self.foreground1.size.width){
-    
-                self.currentScreenOffset += 1;
-                
-                self.foreground1.position = CGPointMake(self.foreground2.position.x - self.foreground2.size.width, self.foreground1.position.y);
-                
-                
-                NSInteger largestDequeuedScreenSegment;
-                
-                if (self.foreground1.index > self.foreground2.index) {
-                    largestDequeuedScreenSegment = (int)self.foreground1.index;
-                }
-                else {
-                    largestDequeuedScreenSegment = (int)self.foreground2.index;
-                }
-                
-                NSInteger nextScreenSegmentToDequeue = (int)largestDequeuedScreenSegment + 1;
-                
-                // safty first
-                //            if (nextScreenSegmentToDequeue > self.environmentManager.totalForegroundScreenSegments || nextScreenSegmentToDequeue < 0) {
-                //                nextScreenSegmentToDequeue = 1;
-                //            }
-                
-                if (nextScreenSegmentToDequeue <= self.foregroundTextures.count && nextScreenSegmentToDequeue >= 0) {
-                    [self.foreground1 updateTextureWithOffset:nextScreenSegmentToDequeue];
-                }
-                
-            }
-            
-            if (self.foreground2.position.x > self.foreground2.size.width) {
-                
-                self.currentScreenOffset += 1;
-                
-                self.foreground2.position = CGPointMake(self.foreground1.position.x - self.foreground1.size.width, self.foreground2.position.y);
-                
-                NSInteger largestDequeuedScreenSegment;
-                
-                if (self.foreground1.index > self.foreground2.index) {
-                    largestDequeuedScreenSegment = (int)self.foreground1.index;
-                }
-                else {
-                    largestDequeuedScreenSegment = (int)self.foreground2.index;
-                }
-                
-                NSInteger nextScreenSegmentToDequeue = (int)largestDequeuedScreenSegment + 1;
-                
-                // safty first
-                //            if (nextScreenSegmentToDequeue > self.environmentManager.totalForegroundScreenSegments || nextScreenSegmentToDequeue < 0) {
-                //                nextScreenSegmentToDequeue = 1;
-                //            }
-                
-                if (nextScreenSegmentToDequeue <= self.foregroundTextures.count && nextScreenSegmentToDequeue >= 0) {
-                    [self.foreground2 updateTextureWithOffset:nextScreenSegmentToDequeue];
-                }
-                
-            }
-            
-            break;
-        }
-            
-        case RIGHT: {
-            
-            // RIGHT
-            
-            if (self.foreground1.position.x < -self.foreground1.size.width){
+            if (firstScreenSegment.position.x < -firstScreenSegment.size.width){
                 
                 self.currentScreenOffset -= 1;
                 
-                self.foreground1.position = CGPointMake(self.foreground2.position.x + self.foreground2.size.width, self.foreground1.position.y);
+                firstScreenSegment.position = CGPointMake(secondScreenSegment.position.x + secondScreenSegment.size.width, firstScreenSegment.position.y);
                 
                 NSInteger smallestDequeuedScreenSegment;
                 
-                if (self.foreground1.index < self.foreground2.index) {
-                    smallestDequeuedScreenSegment = (int)self.foreground1.index;
+                if (firstScreenSegment.index < secondScreenSegment.index) {
+                    smallestDequeuedScreenSegment = (int)firstScreenSegment.index;
                 }
                 else {
-                    smallestDequeuedScreenSegment = (int)self.foreground2.index;
+                    smallestDequeuedScreenSegment = (int)secondScreenSegment.index;
                 }
                 
                 NSInteger nextScreenSegmentToDequeue = (int)smallestDequeuedScreenSegment - 1;
                 
-                // safty first
-                //            if (nextScreenSegmentToDequeue > self.environmentManager.totalForegroundScreenSegments || nextScreenSegmentToDequeue < 0) {
-                //                nextScreenSegmentToDequeue = 1;
-                //            }
-                
-                if (nextScreenSegmentToDequeue <= self.foregroundTextures.count && nextScreenSegmentToDequeue >= 0) {
-                    [self.foreground1 updateTextureWithOffset:nextScreenSegmentToDequeue];
+                if (nextScreenSegmentToDequeue <= maximumNumberOfSegments && nextScreenSegmentToDequeue >= 0) {
+                    [firstScreenSegment updateTextureWithOffset:nextScreenSegmentToDequeue];
+                    //                    [self.delegate didRecycleScreenSegment:self.foreground1];
                 }
             }
             
-            if (self.foreground2.position.x < -self.foreground2.size.width) {
+            if (secondScreenSegment.position.x < -secondScreenSegment.size.width) {
                 
                 self.currentScreenOffset -= 1;
                 
-                self.foreground2.position = CGPointMake(self.foreground1.position.x + self.foreground1.size.width, self.foreground2.position.y);
+                secondScreenSegment.position = CGPointMake(firstScreenSegment.position.x + firstScreenSegment.size.width, secondScreenSegment.position.y);
                 
                 NSInteger smallestDequeuedScreenSegment;
                 
-                if (self.foreground1.index < self.foreground2.index) {
-                    smallestDequeuedScreenSegment = (int)self.foreground1.index;
+                if (firstScreenSegment.index < secondScreenSegment.index) {
+                    smallestDequeuedScreenSegment = (int)firstScreenSegment.index;
                 }
                 else {
-                    smallestDequeuedScreenSegment = (int)self.foreground2.index;
+                    smallestDequeuedScreenSegment = (int)secondScreenSegment.index;
                 }
                 
                 NSInteger nextScreenSegmentToDequeue = (int)smallestDequeuedScreenSegment - 1;
                 
-                // safty first
-                //            if (nextScreenSegmentToDequeue > self.environmentManager.totalForegroundScreenSegments || nextScreenSegmentToDequeue < 0) {
-                //                nextScreenSegmentToDequeue = 1;
-                //            }
-                
-                if (nextScreenSegmentToDequeue <= self.foregroundTextures.count && nextScreenSegmentToDequeue >= 0) {
-                    [self.foreground2 updateTextureWithOffset:nextScreenSegmentToDequeue];
+                if (nextScreenSegmentToDequeue <= maximumNumberOfSegments && nextScreenSegmentToDequeue >= 0) {
+                    [secondScreenSegment updateTextureWithOffset:nextScreenSegmentToDequeue];
+                    //                    [self.delegate didRecycleScreenSegment:self.foreground2];
                 }
             }
-
+            
             break;
         }
             
@@ -784,7 +515,6 @@
     if (newOffset == 0) {
         self.currentOffset = 0;
         self.currentScreenOffset = 0;
-        //[[NSNotificationCenter defaultCenter] postNotificationName:kResetScreenSegmentIndex object:nil];
     }
 }
 

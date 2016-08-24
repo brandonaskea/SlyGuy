@@ -1,6 +1,6 @@
 //
 //  SwipeMenuHeaderView.m
-//  Trumpd
+//  Sly Guy
 //
 //  Created by Brandon Askea on 1/29/16.
 //  Copyright © 2016 Brandon Askea. All rights reserved.
@@ -39,16 +39,16 @@
     
     // USERNAME LABEL
     usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(kSwipeMenuHeaderImagePadding + kSwipeMenuHeaderImageHW + kSwipeMenuHeaderUsernameLabelPadding, kSwipeMenuHeaderUsernameLabelPadding, self.bounds.size.width - (kSwipeMenuHeaderImagePadding + kSwipeMenuHeaderImageHW + (kSwipeMenuHeaderUsernameLabelPadding * 2)), kSwipeMenuHeaderUsernameLabelHeight)];
-    usernameLabel.text = @"Donald J Trump is #1 or Sure Yall";
+    usernameLabel.text = @"Episode One";
     usernameLabel.font = [UIFont fontWithName:kMenuFont size:19];
     usernameLabel.adjustsFontSizeToFitWidth = YES;
     usernameLabel.minimumScaleFactor = 0.5;
     usernameLabel.numberOfLines = 1;
-    usernameLabel.textColor = [UIColor trumpGold];
+    usernameLabel.textColor = [UIColor gold];
     [self addSubview:usernameLabel];
     
-    detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(kSwipeMenuHeaderTrumpQuotePadding,kSwipeMenuHeaderImageHW, self.bounds.size.width - (kSwipeMenuHeaderTrumpQuotePadding * 2), self.bounds.size.height /2)];
-    detailLabel.text = [GameUtility getRandomQuoteFromDonaldTrump];
+    detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(kSwipeMenuHeaderQuotePadding,kSwipeMenuHeaderImageHW, self.bounds.size.width - (kSwipeMenuHeaderQuotePadding * 2), self.bounds.size.height /2)];
+    detailLabel.text = [GameUtility getMenuTitle];
     detailLabel.font = [UIFont fontWithName:kMenuDetailFont size:6];
     detailLabel.textColor = [UIColor whiteColor];
     detailLabel.numberOfLines = 0;

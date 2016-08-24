@@ -96,12 +96,11 @@
 +(void)savePlayer:(Player *)player {
     
     /*
-     *  Save the player to persisted defaults
+     *  Save the player to persisted defaults.
         Weird because singleton is passed in
         but works because you cannot call 
         self from class method
      */
-    
     NSDictionary *playerDefaultsToSave = [Player convertPlayerIntoDictionary:player];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
